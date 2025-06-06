@@ -1,0 +1,51 @@
+---
+description: 
+globs: apps/web/src/**/*.ts,apps/web/src/**/*.tsx
+alwaysApply: false
+---
+# Web structure
+
+## Overview
+
+```
+src
+├── api
+├── app
+│   ├── app
+│   ├── layout.tsx
+│   └── page.tsx
+├── components
+├── config
+├── constants
+├── features
+├── hooks
+├── lib
+│   ├── components
+│   ├── hooks
+│   └── utils
+├── messages
+│   └── en.json
+├── services
+└── utils
+```
+
+## Details
+
+- **config**: Application configuration files
+- **app**: Next.js app router files including layouts, pages, and routing
+  - **app**: Main application route
+  - **layout.tsx**: Root layout
+  - **page.tsx**: Root page
+- **features**: Page components to be used in src/app
+- **components**: Components with business logic, or components using external libraries
+- **hooks**: Custom React hooks with business logic
+- **utils**: Utility functions and helpers
+- **constants**: Application constants
+- **messages**: Internationalization files
+- **lib**: The library that has no dependencies outside tailwindcss and shadcn
+  - **components**: Library components
+  - **hooks**: Library hooks
+  - **utils**: Library utility functions
+- **services**: Service layer for data fetching and business logic
+- **api**: API providers, or the Controllers
+
