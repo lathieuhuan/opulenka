@@ -10,6 +10,8 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@opulenka/service": "workspace:*",
+    "@tanstack/react-query": "5.67.1",
     "next": "15.3.0",
     "next-intl": "4.0.2",
     "react": "19.1.0",
