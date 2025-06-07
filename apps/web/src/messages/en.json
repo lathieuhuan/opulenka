@@ -1,5 +1,83 @@
 {
   "HomePage": {
     "TITLE": "Home"
+  },
+  "Dashboard": {
+    "TITLE": "Dashboard",
+    "TOTAL_BALANCE": "Total Balance",
+    "INCOME_THIS_MONTH": "Income This Month",
+    "EXPENSES_THIS_MONTH": "Expenses This Month",
+    "QUICK_ACTIONS": "Quick Actions",
+    "ADD_TRANSACTION": "Add Transaction",
+    "MANAGE_ACCOUNTS": "Manage Accounts",
+    "VIEW_REPORTS": "View Reports",
+    "BUDGET_OVERVIEW": "Budget Overview",
+    "RECENT_TRANSACTIONS": "Recent Transactions",
+    "VIEW_ALL": "View All",
+    "UPCOMING_BILLS": "Upcoming Bills"
+  },
+  "Accounts": {
+    "TITLE": "Accounts",
+    "TOTAL_BALANCE": "Total Balance",
+    "TOTAL_ASSETS": "Total Assets",
+    "TOTAL_LIABILITIES": "Total Liabilities",
+    "YOUR_ACCOUNTS": "Your Accounts",
+    "ADD_ACCOUNT": "Add Account",
+    "VIEW_TRANSACTIONS": "View Transactions",
+    "EDIT": "Edit"
+  },
+  "Transactions": {
+    "TITLE": "Transactions",
+    "ADD_TRANSACTION": "Add Transaction",
+    "DATE_RANGE": "Date Range",
+    "CATEGORY": "Category",
+    "ACCOUNT": "Account",
+    "AMOUNT": "Amount",
+    "SEARCH_TRANSACTIONS": "Search transactions...",
+    "RESET_FILTERS": "Reset Filters",
+    "APPLY_FILTERS": "Apply Filters",
+    "SHOWING": "Showing",
+    "OF": "of",
+    "TRANSACTIONS": "transactions",
+    "PREVIOUS": "Previous",
+    "NEXT": "Next"
+  },
+  "Budgets": {
+    "TITLE": "Budgets",
+    "CREATE_BUDGET": "Create Budget",
+    "ACTIVE_BUDGETS": "Active Budgets",
+    "EDIT_BUDGET": "Edit Budget",
+    "DELETE_BUDGET": "Delete Budget"
+  },
+  "Bills": {
+    "TITLE": "Bills & Subscriptions",
+    "ADD_BILL": "Add Bill",
+    "UPCOMING_BILLS": "Upcoming Bills",
+    "DUE_IN": "Due in",
+    "DAYS": "days"
+  },
+  "Goals": {
+    "TITLE": "Savings Goals",
+    "ADD_GOAL": "Add Goal",
+    "CURRENT_GOALS": "Current Goals",
+    "TARGET_DATE": "Target Date",
+    "PROGRESS": "Progress"
+  },
+  "Reports": {
+    "TITLE": "Reports & Analytics",
+    "SPENDING_BY_CATEGORY": "Spending by Category",
+    "INCOME_VS_EXPENSES": "Income vs Expenses",
+    "SAVINGS_RATE": "Savings Rate",
+    "NET_WORTH_TREND": "Net Worth Trend"
+  },
+  "Common": {
+    "CANCEL": "Cancel",
+    "SAVE": "Save",
+    "DELETE": "Delete",
+    "EDIT": "Edit",
+    "ADD": "Add",
+    "REMOVE": "Remove",
+    "CONFIRM": "Confirm",
+    "SEARCH": "Search"
   }
 }
