@@ -13,5 +13,5 @@ export const POST = baseProcedure
     };
   })
   .createHandler((_, ctx) => {
-    return ctx.authService.login(ctx.body);
+    return ctx.service.auth.login(ctx.body);
   });

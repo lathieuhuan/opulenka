@@ -9,7 +9,7 @@ import { configureDatabase } from "./configure-database";
 //   $client: NeonQueryFunction<false, false>;
 // };
 
-export class OpulenkaService {
+export class ServiceProvider {
   //
   private _sql: NeonQueryFunction<false, false> | undefined;
 
@@ -29,6 +29,12 @@ export class OpulenkaService {
       throw new Error("Database is not initialized");
     }
     return this._sql;
+  }
+
+  get service() {
+    return {
+      auth: this.authService,
+    };
   }
 
   async configureDatabase() {
