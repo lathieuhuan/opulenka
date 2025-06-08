@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ServiceResponse, ErrorResponse, SuccessResponse } from "@opulenka/service";
 
+export type DefaultContext = {
+  params: Promise<{ [key: string]: string }>;
+};
+
 export type RequestInterceptor<TContext = void, TPreContext = void> = (
   request: NextRequest,
   ctx: TPreContext,
@@ -19,14 +23,17 @@ function isResponse<TContext>(
   return response instanceof ErrorResponse || response instanceof SuccessResponse;
 }
 
-export class Procedure<TContext = void, TPreContext = void> {
+export class Procedure<
+  TContext extends DefaultContext = DefaultContext,
+  TPreContext extends DefaultContext = DefaultContext,
+> {
   //
   constructor(
     private readonly interceptor?: RequestInterceptor<TContext, TPreContext>,
     private readonly responseInterceptors: ResponseInterceptor[] = [],
   ) {}
 
-  interceptRequest<TNewContext>(interceptor: RequestInterceptor<TNewContext, TContext>) {
+  interceptRequest<TNewContext extends DefaultContext>(interceptor: RequestInterceptor<TNewContext, TContext>) {
     const prevInterceptor = this.interceptor;
 
     if (prevInterceptor) {

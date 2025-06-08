@@ -1,5 +1,5 @@
 import { ErrorResponse, OpulenkaService, COMMON_ERRORS } from "@opulenka/service";
-import { Procedure } from "./procedure";
+import { DefaultContext, Procedure } from "./procedure";
 
 // type OmitExact<T, K extends keyof T> = Omit<T, K> & {
 //   [P in K]-?: T[P];
@@ -7,9 +7,11 @@ import { Procedure } from "./procedure";
 
 // type ServiceContext = OmitExact<OpulenkaService, "configureDatabase">;
 
+type BaseContext = DefaultContext & Omit<OpulenkaService, "configureDatabase">;
+
 let service: OpulenkaService | undefined;
 
-export const baseProcedure = new Procedure(async () => {
+export const baseProcedure = new Procedure<BaseContext, DefaultContext>(async (_, ctx) => {
   if (!service) {
     try {
       service = new OpulenkaService(process.env.DATABASE_URL!);
@@ -20,5 +22,5 @@ export const baseProcedure = new Procedure(async () => {
   }
   const { configureDatabase, ...rest } = service;
 
-  return rest;
+  return Object.assign(rest, ctx);
 });
