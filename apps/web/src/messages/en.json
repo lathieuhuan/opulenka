@@ -1,4 +1,8 @@
 {
+  "FormErrors": {
+    "REQUIRED_INFO": "This field is required",
+    "MIN_LENGTH": "Please enter at least {min} characters"
+  },
   "LandingPage": {
     "title": "Welcome to Opulenka",
     "description": "Opulenka is an intuitive and powerful financial management tool, designed to help you track your transactions, master your budget, and achieve your financial goals with ease.",
