@@ -22,3 +22,5 @@ export const registerSchema = z
       });
     }
   });
+
+export type RegisterSchema = z.infer<typeof registerSchema>;
