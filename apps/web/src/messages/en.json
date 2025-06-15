@@ -24,5 +24,13 @@
     "register": "Register",
     "alreadyHaveAccount": "Already have an account?",
     "login": "Login"
+  },
+  "LoginForm": {
+    "title": "Login",
+    "email": "Email",
+    "password": "Password",
+    "login": "Login",
+    "forgotPassword": "Forgot Password?",
+    "newUserMessage": "New to Opulenka? <link>Create an account</link>"
   }
 }

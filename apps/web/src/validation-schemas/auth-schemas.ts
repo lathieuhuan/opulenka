@@ -23,4 +23,16 @@ export const registerSchema = z
     }
   });
 
+export const loginSchema = z.object({
+  email: z
+    .string()
+    .nonempty()
+    .refine((value) => !StringUtils.isEmpty(value), "INVALID_VALUE"),
+  password: z
+    .string()
+    .nonempty()
+    .refine((value) => !StringUtils.isEmpty(value), "INVALID_VALUE"),
+});
+
 export type RegisterSchema = z.infer<typeof registerSchema>;
+export type LoginSchema = z.infer<typeof loginSchema>;
