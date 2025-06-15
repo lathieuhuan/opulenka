@@ -1,12 +1,24 @@
 {
   "FormErrors": {
     "REQUIRED_INFO": "This field is required",
-    "MIN_LENGTH": "Please enter at least {min} characters"
+    "MIN_LENGTH": "Please enter at least {min} characters",
+    "INVALID_VALUE": "Invalid information",
+    "INCORRECT_PASSWORD_CONFIRM": "Incorrect password confirmation"
   },
   "LandingPage": {
     "title": "Welcome to Opulenka",
     "description": "Opulenka is an intuitive and powerful financial management tool, designed to help you track your transactions, master your budget, and achieve your financial goals with ease.",
     "ctaSecondary": "Login",
     "ctaPrimary": "Register"
+  },
+  "RegisterForm": {
+    "title": "Create Account",
+    "email": "Email",
+    "password": "Password",
+    "passwordConfirm": "Confirm Password",
+    "message": "By creating an account, you agree to the Opulenka <tof>Terms of Service</tof> and <pp>Privacy Policy</pp>",
+    "register": "Register",
+    "alreadyHaveAccount": "Already have an account?",
+    "login": "Login"
   }
 }
