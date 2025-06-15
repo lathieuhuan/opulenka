@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { getLocale } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
-import { QueryClientProvider } from "./components/query-client-provider";
+import { getLocale } from "next-intl/server";
+import { Geist, Geist_Mono } from "next/font/google";
+
+import { QueryClientProvider } from "@/components/query-client-provider";
 
 import "./globals.css";
 
@@ -30,7 +31,10 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body
+        className={`dark ${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
+      >
         <QueryClientProvider>
           <NextIntlClientProvider>{children}</NextIntlClientProvider>
         </QueryClientProvider>
