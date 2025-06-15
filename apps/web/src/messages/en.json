@@ -1,5 +1,8 @@
 {
-  "HomePage": {
-    "TITLE": "Home"
+  "LandingPage": {
+    "title": "Welcome to Opulenka",
+    "description": "Opulenka is an intuitive and powerful financial management tool, designed to help you track your transactions, master your budget, and achieve your financial goals with ease.",
+    "ctaSecondary": "Login",
+    "ctaPrimary": "Register"
   }
 }
