@@ -1,17 +1,12 @@
 import * as jose from "jose";
 import { cookies } from "next/headers";
+import { UserInfo } from "@/types/global";
 
 const secret = new TextEncoder().encode(process.env.JWT_SECRET_KEY!);
 const issuer = "urn:opulenka:issuer";
 const audience = "urn:opulenka:audience";
 
-export type EncryptedUserInfo = {
-  userId: number;
-  email: string;
-  username: string | null;
-};
-
-const encodeUserSession = async (encryptedInfo: EncryptedUserInfo) => {
+const encodeUserSession = async (encryptedInfo: UserInfo) => {
   const jwt = await new jose.EncryptJWT(encryptedInfo)
     .setProtectedHeader({ alg: "dir", enc: "A128CBC-HS256" })
     .setIssuedAt()
@@ -28,15 +23,15 @@ const decodeUserSession = async (jwt: string) => {
       issuer,
       audience,
     });
-    return payload as jose.JWTPayload & EncryptedUserInfo;
+    return payload as jose.JWTPayload & UserInfo;
   } catch (error) {
     console.error(error);
     return null;
   }
 };
 
-export const setUserSession = async (encryptedInfo: EncryptedUserInfo) => {
-  const jwt = await encodeUserSession(encryptedInfo);
+export const setUserSession = async (userInfo: UserInfo) => {
+  const jwt = await encodeUserSession(userInfo);
   const cookieStore = await cookies();
 
   cookieStore.set("session_id", jwt, {
