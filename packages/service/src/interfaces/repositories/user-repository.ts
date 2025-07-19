@@ -1,4 +1,4 @@
-import { UserEntity } from "@/interfaces/entities";
+import { UserEntity } from "../entities";
 
 export type AddUserParams = Pick<UserEntity, "email" | "password">;
 

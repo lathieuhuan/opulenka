@@ -1,23 +1,20 @@
 import type { Metadata } from "next";
-import { NextIntlClientProvider } from "next-intl";
+import { Geist, Geist_Mono } from "next/font/google";
 import { getLocale } from "next-intl/server";
-// import { Geist, Geist_Mono } from "next/font/google";
-import { Toaster } from "sonner";
-
-import { HttpSetup } from "@/components/http-setup";
-import { QueryClientProvider } from "@/components/query-client-provider";
+import { NextIntlClientProvider } from "next-intl";
+import { QueryClientProvider } from "./components/query-client-provider";
 
 import "./globals.css";
 
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
 
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Opulenka",
@@ -33,16 +30,9 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body
-        className={`dark antialiased`}
-        suppressHydrationWarning
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <QueryClientProvider>
-          <NextIntlClientProvider>
-            <HttpSetup locale={locale} />
-            <Toaster expand richColors position="top-right" />
-            {children}
-          </NextIntlClientProvider>
+          <NextIntlClientProvider>{children}</NextIntlClientProvider>
         </QueryClientProvider>
       </body>
     </html>

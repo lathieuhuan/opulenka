@@ -1,4 +1,4 @@
-import { IUserRepository } from "@/interfaces/repositories";
+import { IUserRepository } from "../interfaces/repositories";
 import {
   ErrorResponse,
   LoginRequest,
@@ -6,8 +6,8 @@ import {
   RegisterRequest,
   RegisterResponse,
   SuccessResponse,
-} from "@/interfaces/services";
-import pbkdf2 from "@/utils/pbkdf2";
+} from "../interfaces/services";
+import pbkdf2 from "../utils/pbkdf2";
 import { CatchErrors } from "./decorators";
 import { AUTH_ERRORS } from "./errors";
 

@@ -1,4 +1,4 @@
-import { AddUserParams } from "@/interfaces/repositories";
+import { AddUserParams } from "../repositories";
 import { ServiceResponse } from "./base-response";
 
 export type RegisterRequest = AddUserParams;
