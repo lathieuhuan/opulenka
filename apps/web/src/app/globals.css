@@ -1,8 +1,10 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --radius: 0.5rem;
 }
 
 @theme inline {
@@ -10,17 +12,110 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-header: var(--header);
+  --color-header-foreground: var(--header-foreground);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-error: var(--error);
+  --color-warning: var(--warning);
+  --color-success: var(--success);
+  --color-info: var(--info);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-link: var(--link);
+  --color-link-visited: var(--link-visited);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --background: hsl(45 28% 97%);
+  --foreground: hsl(20.04 14% 4%);
+  /* WIP */
+  --sidebar: hsl(0 0% 98%);
+  --sidebar-foreground: hsl(240 5.3% 26.1%);
+  --sidebar-primary: hsl(240 5.9% 10%);
+  --sidebar-primary-foreground: hsl(0 0% 98%);
+  --sidebar-accent: hsl(240 4.8% 95.9%);
+  --sidebar-accent-foreground: hsl(240 5.9% 10%);
+  --sidebar-border: hsl(220 13% 91%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
+}
+
+.dark {
+  --background: hsl(210 10% 5%);
+  --foreground: hsl(60.01 7% 98%);
+  --card: hsl(223.81 0% 9%);
+  --card-foreground: hsl(60.01 7% 98%);
+  --popover: hsl(223.81 0% 9%);
+  --popover-foreground: hsl(60.01 7% 98%);
+  --primary: hsl(46 91% 49%);
+  --primary-foreground: hsl(210 10% 3%);
+  --secondary: hsl(223.81 0% 90%);
+  --secondary-foreground: hsl(210 10% 3%);
+  --muted: hsl(12 7% 15%);
+  --muted-foreground: hsl(24.01 6% 63%);
+  --accent: hsl(12 7% 15%);
+  --accent-foreground: hsl(60.01 7% 98%);
+  --destructive: hsl(358.75 100% 70%);
+  --error: hsl(358.75 100% 70%);
+  --warning: hsl(20 100% 47%);
+  --success: hsl(132.92 100% 41%);
+  --info: hsl(215.56 100% 57%);
+  --border: hsl(223.81 -173% 100% / 0.1);
+  --input: hsl(223.81 -173% 100% / 0.15);
+  --ring: hsl(25.02 6% 45%);
+  --chart-1: hsl(225.35 84% 49%);
+  --chart-2: hsl(159.74 100% 37%);
+  --chart-3: hsl(36.49 100% 50%);
+  --chart-4: hsl(273.3 100% 64%);
+  --chart-5: hsl(345.32 100% 56%);
+  --sidebar: hsl(223.81 0% 9%);
+  --sidebar-foreground: hsl(60.01 7% 98%);
+  --sidebar-primary: hsl(225.35 84% 49%);
+  --sidebar-primary-foreground: hsl(60.01 7% 98%);
+  --sidebar-accent: hsl(12 7% 15%);
+  --sidebar-accent-foreground: hsl(60.01 7% 98%);
+  --sidebar-border: hsl(223.81 -173% 100% / 0.1);
+  --sidebar-ring: hsl(25.02 6% 45%);
+  --header: hsl(223.81 0% 9%);
+  --header-foreground: hsl(60.01 7% 98%);
+  --link: var(--color-blue-400);
+  --link-visited: var(--color-blue-500);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    @apply bg-background text-foreground;
+  }
 }

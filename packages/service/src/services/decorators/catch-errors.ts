@@ -1,6 +1,6 @@
 import { NeonDbError } from "@neondatabase/serverless";
-import { ErrorResponse } from "../../interfaces/services";
-import { COMMON_ERRORS } from "../errors";
+import { ErrorResponse } from "@/interfaces/services";
+import { COMMON_ERRORS } from "@/services/errors";
 
 export function CatchErrors(originalMethod: any) {
   //

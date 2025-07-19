@@ -1,7 +1,8 @@
 import { eq } from "drizzle-orm";
-import { UsersTable } from "../db";
-import { UserEntity } from "../interfaces/entities";
-import { AddUserParams, IUserRepository } from "../interfaces/repositories";
+
+import { UsersTable } from "@/db";
+import { UserEntity } from "@/interfaces/entities";
+import { AddUserParams, IUserRepository } from "@/interfaces/repositories";
 import { BaseRepository } from "./base-repository";
 
 export class UserRepository extends BaseRepository implements IUserRepository {

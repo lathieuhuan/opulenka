@@ -1,8 +1,8 @@
 import { neon, NeonQueryFunction } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 
-import { UserRepository } from "../repositories/user-repository";
-import { AuthService } from "../services/auth-service";
+import { UserRepository } from "@/repositories/user-repository";
+import { AuthService } from "@/services/auth-service";
 import { configureDatabase } from "./configure-database";
 
 // type Database = NeonHttpDatabase & {

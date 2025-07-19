@@ -1,17 +1,24 @@
+import { translateError, validateBody } from "@/procedures/add-ons";
 import { baseProcedure } from "@/procedures/base-procedure";
+import { setUserSession } from "@/utils/auth-utils";
+import { loginSchema } from "@/validation-schemas/auth-schemas";
+import { SuccessResponse } from "@opulenka/service";
 
 export const POST = baseProcedure
-  .interceptRequest(async (request, ctx) => {
-    const body: {
-      email: string;
-      password: string;
-    } = await request.json();
+  .interceptRequest(validateBody(loginSchema))
+  .interceptResponse(translateError("AuthServiceErrors"))
+  .createHandler(async (_, ctx) => {
+    const response = await ctx.service.auth.login(ctx.body);
 
-    return {
-      ...ctx,
-      body,
-    };
-  })
-  .createHandler((_, ctx) => {
-    return ctx.service.auth.login(ctx.body);
+    if (response instanceof SuccessResponse) {
+      const user = response.data;
+
+      await setUserSession({
+        userId: user.id,
+        email: user.email,
+        username: user.username,
+      });
+    }
+
+    return response;
   });

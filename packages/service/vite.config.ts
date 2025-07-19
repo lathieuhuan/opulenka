@@ -15,6 +15,11 @@ export default defineConfig({
     }),
     dts({ include: ["src"] }),
   ],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
   build: {
     lib: {
       entry: path.resolve(__dirname, "src/main.ts"),
