@@ -1,5 +1,5 @@
 import { createTranslator } from "next-intl";
-import { ErrorResponse, ServiceResponse, SuccessResponse } from "@opulenka/service";
+import { DataOf, ErrorResponse, ServiceResponse, SuccessResponse } from "@opulenka/service";
 import { DOMAIN } from "@/constants/config";
 import { notifier } from "@/utils/notifier";
 import { API_ERRORS, apiErrorsByLocale } from "./api-errors";
@@ -22,12 +22,12 @@ function makeHttp(baseUrl: string) {
   let t: ReturnType<typeof createTranslator> | undefined;
 
   function mayRetry<TResponseData = any>(
-    fetchFn: (retry: RetryConfig) => Promise<ServiceResponse<TResponseData>>,
+    fetchFn: (retry: RetryConfig) => Promise<SuccessResponse<TResponseData>>,
     remainingDefaultRetries: number,
     retry: RetryConfig = 0,
     retryDelay = 1000,
     doneRetries = 0,
-  ): Promise<ServiceResponse<TResponseData>> {
+  ): Promise<SuccessResponse<TResponseData>> {
     //
     return fetchFn(retry).catch((error: ErrorResponse) => {
       // DEFAULT RETRY
@@ -47,7 +47,7 @@ function makeHttp(baseUrl: string) {
         let message = t && error.message in API_ERRORS ? t(error.message) : error.message;
         notifier.notify(message, "error");
 
-        return new SuccessResponse(undefined);
+        throw error;
       }
 
       // CUSTOM RETRY
@@ -89,7 +89,7 @@ function makeHttp(baseUrl: string) {
   async function _fetch<TResponseData = any>(
     url: string,
     requestInit: RequestInit,
-  ): Promise<ServiceResponse<TResponseData>> {
+  ): Promise<SuccessResponse<TResponseData>> {
     //
     return fetch(url, requestInit)
       .then(async (response) => {
@@ -110,7 +110,7 @@ function makeHttp(baseUrl: string) {
       });
   }
 
-  function request<TResponseData = any>(
+  function request<TResponse extends ServiceResponse, TData = DataOf<TResponse>>(
     method: Method,
     path: string,
     {
@@ -137,8 +137,8 @@ function makeHttp(baseUrl: string) {
       },
     };
 
-    return mayRetry<TResponseData>(
-      () => _fetch<TResponseData>(url, requestInit),
+    return mayRetry<TData>(
+      () => _fetch<TData>(url, requestInit),
       useDefaultRetry ? NUM_OF_DEFAULT_RETRIES : 0,
       retry,
       retryDelay,

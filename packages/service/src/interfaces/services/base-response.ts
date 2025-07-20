@@ -5,7 +5,7 @@ class BaseServiceResponse {
   ) {}
 }
 
-export class SuccessResponse<TData> extends BaseServiceResponse {
+export class SuccessResponse<TData = void> extends BaseServiceResponse {
   constructor(
     public readonly data: TData,
     public status = 200,
@@ -28,4 +28,7 @@ export class ErrorResponse extends BaseServiceResponse {
   }
 }
 
-export type ServiceResponse<TData> = ErrorResponse | SuccessResponse<TData>;
+export type ServiceResponse<TData = any> = ErrorResponse | SuccessResponse<TData>;
+
+export type DataOf<TResponse extends ServiceResponse> =
+  TResponse extends SuccessResponse<infer U> ? U : never;
