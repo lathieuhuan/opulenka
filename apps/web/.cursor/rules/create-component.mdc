@@ -1,0 +1,7 @@
+---
+description: Rules for create components
+alwaysApply: false
+---
+
+- Reuse components in src/components & lib/components if possible.
+- Use tailwind css for styling but do not use tailwind default colors, use colors defined in `src/app/globals.css` or define new colors if needed.

@@ -1,0 +1,38 @@
+---
+description: Standard steps for creating services
+alwaysApply: false
+---
+
+Steps to make a new service in packages/service/src.
+
+For example: AccountService
+
+1. Create the repository interface:
+
+- Directory: src/interfaces/repositories
+- Define IAccountRepository interface that AccountService will interact with.
+- Example: `account-repository.ts`
+
+2. Define interfaces for service methods:
+
+- Directory: src/interfaces/services
+- Define request and response interfaces for each method AccountService will expose.
+- Example: `account-service.ts`
+
+3. Implement the Repository class:
+
+- Directory: src/repositories
+- Create AccountRepository class that implements IAccountRepository interface.
+- Example: `account-repository.ts`
+
+3. Implement the Service class:
+
+- Directory: src/services
+- Create AccountService class with methods for each service operation. The class uses the IAccountRepository that is injected through its constructor to perform database operations.
+- If there should be any error, define it in src/services/errors. Example: `account-errors.ts`
+- Use decorator @CatchErrors to handle exceptions in each service methods.
+- Example: `account-service.ts`
+
+5. Integrate with Service Provider:
+
+- Update the `service-provider.ts` to include AccountService.

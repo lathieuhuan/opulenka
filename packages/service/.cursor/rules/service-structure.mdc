@@ -1,0 +1,66 @@
+---
+description: 
+globs: packages/service/**/*.ts
+alwaysApply: false
+---
+# @opulenka/service
+
+A backend service package for the Opulenka application that provides database connectivity, service implementations, and repositories for managing application data.
+
+## Overview
+
+This package serves as the service layer for the Opulenka application, providing:
+
+- Database connectivity to NeonDB using Drizzle ORM
+- Authentication services (register, login)
+- Repository pattern for data access
+- Service provider architecture for dependency injection
+
+## Architecture
+
+- **Database Layer**: Uses Drizzle ORM with NeonDB for PostgreSQL connectivity
+- **Repository Layer**: Abstracts data access operations
+- **Service Layer**: Implements business logic and operations
+- **Service Provider**: Handles dependency injection and service instantiation
+
+## Database Schema
+
+The database schema includes tables for:
+
+- Users: Authentication and user information
+- Accounts: Financial accounts with balances and types
+- Transactions: Financial transactions between accounts
+
+## Folder Structure
+
+The texts inside [] brackets are placeholders.
+
+```
+packages/service/
+├── src/
+│   ├── constants/          # Constants and enumerations
+│   ├── db/                 # Database schema definitions
+│   │   ├── [entityName]-table.ts
+│   │   └── index.ts
+│   ├── interfaces/         # TypeScript interfaces
+│   │   ├── entities.ts
+│   │   ├── repository/
+│   │   └── services/
+│   ├── repositories/       # Data access repositories
+│   ├── services/           # Business logic services
+│   │   ├── errors/
+│   │   ├── decorators/
+│   │   └── [serviceName]-service.ts
+│   ├── service-provider/   # Service provider implementation
+│   │   ├── configure-database.ts
+│   │   ├── service-provider.ts
+│   │   └── index.ts
+│   ├── utils/              # Utility functions
+│   └── main.ts             # Package entry point
+├── drizzle.config.ts       # Drizzle ORM configuration
+├── eslint.config.js        # ESLint configuration
+├── package.json            # Package definition
+├── tsconfig.json           # TypeScript configuration
+└── vite.config.ts          # Vite bundler configuration
+```
+

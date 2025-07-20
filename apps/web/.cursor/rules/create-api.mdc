@@ -1,0 +1,85 @@
+---
+description: Standard steps for creating API endpoints
+alwaysApply: false
+---
+
+# API Creation Steps
+
+When creating new API endpoints, follow these standardized steps:
+
+## 1. Import Required Dependencies
+```typescript
+import { translateError, validateBody, validateQuery } from "@/procedures/add-ons"; // only use necessary add-ons
+import { baseProcedure } from "@/procedures/base-procedure";
+import { [validationSchema] } from "@/validation-schemas/[schema-file]";
+import { SuccessResponse } from "@opulenka/service";
+// Import additional utilities as needed (e.g., setUserSession, auth utils)
+```
+
+## 2. Export HTTP Method Handler
+```typescript
+export const [METHOD] = baseProcedure
+```
+
+## 3. Add Request Validation
+```typescript
+.interceptRequest(validateBody([validationSchema])) // or validateQuery
+```
+
+## 4. Add Error Translation
+```typescript
+// look for errors in packages/service/src/services/errors,
+// define translation for errors if needed
+.interceptResponse(translateError("[ServiceErrorType]"))
+```
+
+## 5. Create Handler Function
+```typescript
+.createHandler(async (_, ctx) => {
+  // Implementation here
+});
+```
+
+## 6. Handler Implementation Pattern
+```typescript
+const response = await ctx.service.[serviceName].[methodName](ctx.body);
+
+if (response instanceof SuccessResponse) {
+  // Handle successful response
+  // Set sessions, cookies, or other side effects
+}
+
+return response;
+```
+
+## Example Implementation
+```typescript
+export const POST = baseProcedure
+  .interceptRequest(validateBody(loginSchema))
+  .interceptResponse(translateError("AuthServiceErrors"))
+  .createHandler(async (_, ctx) => {
+    const response = await ctx.service.auth.login(ctx.body);
+
+    if (response instanceof SuccessResponse) {
+      const user = response.data;
+      
+      await setUserSession({
+        userId: user.id,
+        email: user.email,
+        username: user.username,
+      });
+    }
+
+    return response;
+  });
+```
+
+## Key Points
+- Always use `baseProcedure` as the foundation
+- Validate request body or query params with appropriate schema
+- Translate service-specific errors
+- Handle successful responses for side effects (sessions, etc.) if any
+- Return the service response directly
+- Use `ctx.service.[serviceName].[method]` pattern for service calls
+
+
