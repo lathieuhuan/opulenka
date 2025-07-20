@@ -9,6 +9,9 @@
     "INVALID_LOGIN_INFO": "Invalid login information",
     "USED_EMAIL": "Email already in use"
   },
+  "AccountServiceErrors": {
+    "ACCOUNT_NOT_FOUND": "Account not found"
+  },
   "LandingPage": {
     "title": "Welcome to Opulenka",
     "description": "Opulenka is an intuitive and powerful financial management tool, designed to help you track your transactions, master your budget, and achieve your financial goals with ease.",
@@ -32,5 +35,8 @@
     "login": "Login",
     "forgotPassword": "Forgot Password?",
     "newUserMessage": "New to Opulenka? <link>Create an account</link>"
+  },
+  "AccountsPage": {
+    "title": "Accounts Overview"
   }
 }
