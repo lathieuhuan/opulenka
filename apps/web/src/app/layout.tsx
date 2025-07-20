@@ -7,7 +7,7 @@ import { Toaster } from "sonner";
 import { HttpSetup } from "@/components/http-setup";
 import { QueryClientProvider } from "@/components/query-client-provider";
 
-import "./globals.css";
+import "../globals.css";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
