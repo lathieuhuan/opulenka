@@ -3,6 +3,7 @@ import { eq } from "drizzle-orm";
 import { UsersTable } from "@/db";
 import { UserEntity } from "@/interfaces/entities";
 import { AddUserParams, IUserRepository } from "@/interfaces/repositories";
+import { omitNull } from "@/utils/omit-null";
 import { BaseRepository } from "./base-repository";
 
 export class UserRepository extends BaseRepository implements IUserRepository {
@@ -12,11 +13,11 @@ export class UserRepository extends BaseRepository implements IUserRepository {
       .insert(UsersTable)
       .values({ email: params.email, password: params.password })
       .returning();
-    return user;
+    return omitNull(user);
   }
 
   async getUserByEmail(email: string): Promise<UserEntity | null> {
     const user = await this.db.select().from(UsersTable).where(eq(UsersTable.email, email));
-    return user[0] || null;
+    return omitNull(user[0]) || null;
   }
 }

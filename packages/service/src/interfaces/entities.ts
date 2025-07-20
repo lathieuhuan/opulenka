@@ -1,3 +1,4 @@
 import { UsersTable } from "@/db";
+import { OmitNull } from "@/types";
 
-export type UserEntity = typeof UsersTable.$inferSelect;
+export type UserEntity = OmitNull<typeof UsersTable.$inferSelect>;
