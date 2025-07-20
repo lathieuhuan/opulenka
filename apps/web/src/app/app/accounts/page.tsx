@@ -1,3 +1,1 @@
-export default function AccountsPage() {
-  return <div>Accounts</div>;
-}
+export { AccountsPage as default } from "@/features/accounts-page";
