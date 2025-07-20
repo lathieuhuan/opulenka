@@ -1,7 +1,9 @@
 "use client";
 
+import { useMutation } from "@tanstack/react-query";
 import { Bell, ChevronsUpDown, CreditCard, LogOut, Sparkles, User } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ElementType } from "react";
 
 import { Avatar, AvatarFallback } from "@/lib/components/avatar";
@@ -14,6 +16,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/lib/components/dropdown-menu";
+import { logout } from "@/services/auth-service";
 import { UserInfo } from "@/types/global";
 
 type NavUserProps = {
@@ -50,7 +53,15 @@ const NAV_ITEMS = {
 } satisfies Record<string, NavUserItem>;
 
 export function NavUser({ user }: NavUserProps) {
+  const router = useRouter();
   const name = user.username || user.email;
+
+  const { mutate: tryLogout } = useMutation({
+    mutationFn: () => logout(),
+    onSuccess: () => {
+      router.push("/");
+    },
+  });
 
   return (
     <div className="px-4 flex min-w-0 flex-col gap-1 ">
@@ -101,7 +112,7 @@ export function NavUser({ user }: NavUserProps) {
 
           <DropdownMenuSeparator />
 
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={() => tryLogout()}>
             <LogOut />
             Log out
           </DropdownMenuItem>
