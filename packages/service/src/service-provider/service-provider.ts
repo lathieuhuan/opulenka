@@ -4,6 +4,9 @@ import { drizzle } from "drizzle-orm/neon-http";
 import { configureDatabase } from "./configure-database";
 
 import { AccountRepository } from "@/repositories/account-repository";
+import { CreditCardRepository } from "@/repositories/credit-card-repository";
+import { InvestmentAccountRepository } from "@/repositories/investment-account-repository";
+import { SavingsAccountRepository } from "@/repositories/savings-account-repository";
 import { UserRepository } from "@/repositories/user-repository";
 import { AccountService } from "@/services/account-service";
 import { AuthService } from "@/services/auth-service";
@@ -25,9 +28,17 @@ export class ServiceProvider {
 
     const userRepo = new UserRepository(db);
     const accountRepo = new AccountRepository(db);
+    const creditCardRepo = new CreditCardRepository(db);
+    const investmentAccountRepo = new InvestmentAccountRepository(db);
+    const savingsAccountRepo = new SavingsAccountRepository(db);
 
     this.authService = new AuthService(userRepo);
-    this.accountService = new AccountService(accountRepo);
+    this.accountService = new AccountService(
+      accountRepo,
+      creditCardRepo,
+      investmentAccountRepo,
+      savingsAccountRepo,
+    );
   }
 
   private get sql() {

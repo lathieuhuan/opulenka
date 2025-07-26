@@ -5,33 +5,37 @@ export type CreateAccountParams = {
   userId: number;
   name: string;
   type: EAccountType;
+  accountNumber?: string;
+  serviceProvider?: string;
   description?: string;
   initialBalance?: number;
   currency: ECurrency;
-  accountNumber?: string;
-  serviceProvider?: string;
 };
 
 export type UpdateAccountParams = Partial<{
   name: string;
   status: EAccountStatus;
   type: EAccountType;
-  description: string | null;
-  balance: number;
-  currency: ECurrency;
   accountNumber: string;
   serviceProvider: string;
+  description: string;
+  initialBalance: number;
+  currency: ECurrency;
 }>;
 
-export interface IAccountRepository {
+export interface IAccountRepository<
+  TAccount extends AccountEntity = AccountEntity,
+  TCreateParams extends CreateAccountParams = CreateAccountParams,
+  TUpdateParams extends UpdateAccountParams = UpdateAccountParams,
+> {
   //
-  createAccount(params: CreateAccountParams): Promise<AccountEntity>;
+  createAccount(params: TCreateParams): Promise<TAccount>;
 
-  getAccountById(id: number): Promise<AccountEntity | null>;
+  getAccountByUserIdAndId(userId: number, id: number): Promise<TAccount | null>;
 
-  getAccountsByUserId(userId: number): Promise<AccountEntity[]>;
+  getAccountsByUserId(userId: number): Promise<TAccount[]>;
 
-  updateAccount(id: number, params: UpdateAccountParams): Promise<AccountEntity | null>;
+  updateAccount(id: number, params: TUpdateParams): Promise<TAccount | null>;
 
   deleteAccount(id: number): Promise<boolean>;
 }

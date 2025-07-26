@@ -1,7 +1,8 @@
 export enum EAccountType {
   CASH = "CASH",
-  CREDIT = "CREDIT",
-  DEBIT = "DEBIT",
+  CHECKING = "CHECKING",
+  SAVINGS = "SAVINGS",
+  CREDIT_CARD = "CREDIT_CARD",
   INVESTMENT = "INVESTMENT",
 }
 
