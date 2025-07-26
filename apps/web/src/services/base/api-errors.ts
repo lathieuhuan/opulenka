@@ -13,6 +13,7 @@ export const apiErrorsByLocale: Record<string, Record<keyof typeof API_ERRORS, s
     [API_ERRORS.BAD_REQUEST]: "Bad request",
     [API_ERRORS.UNAUTHORIZED]: "Unauthorized",
     [API_ERRORS.FORBIDDEN]: "Forbidden",
+    [API_ERRORS.NOT_FOUND]: "Not found",
   },
   vi: {
     [API_ERRORS.CONNECTION_ERROR]: "Lỗi kết nối",
@@ -20,5 +21,6 @@ export const apiErrorsByLocale: Record<string, Record<keyof typeof API_ERRORS, s
     [API_ERRORS.BAD_REQUEST]: "Yêu cầu không hợp lệ",
     [API_ERRORS.UNAUTHORIZED]: "Không được phép",
     [API_ERRORS.FORBIDDEN]: "Không được phép truy cập",
+    [API_ERRORS.NOT_FOUND]: "Không tìm thấy",
   },
 };
