@@ -1,9 +1,11 @@
 {
-  "FormErrors": {
+  "FormField": {
     "REQUIRED_INFO": "This field is required",
     "MIN_LENGTH": "Please enter at least {min} characters",
     "INVALID_VALUE": "Invalid information",
-    "INCORRECT_PASSWORD_CONFIRM": "Incorrect password confirmation"
+    "INCORRECT_PASSWORD_CONFIRM": "Incorrect password confirmation",
+    "__Enter": "Enter",
+    "__Select": "Select"
   },
   "AuthServiceErrors": {
     "INVALID_LOGIN_INFO": "Invalid login information",
