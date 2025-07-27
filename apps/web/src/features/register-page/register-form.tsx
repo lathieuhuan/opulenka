@@ -6,6 +6,7 @@ import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 
+import { DEFAULT_PLACEHOLDER } from "@/components/form/configs";
 import { register } from "@/services/auth-service";
 import { registerSchema, type RegisterSchema } from "@/validation-schemas/auth-schemas";
 
@@ -49,11 +50,11 @@ export function RegisterForm() {
             <FormInput name="email" label={t("email")} />
 
             <FormField control={form.control} name="password" label={t("password")}>
-              <PasswordInput />
+              <PasswordInput placeholder={DEFAULT_PLACEHOLDER.__Enter} />
             </FormField>
 
             <FormField control={form.control} name="passwordConfirm" label={t("passwordConfirm")}>
-              <PasswordInput />
+              <PasswordInput placeholder={DEFAULT_PLACEHOLDER.__Enter} />
             </FormField>
 
             <p className="text-sm opacity-90">

@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
+import { DEFAULT_PLACEHOLDER } from "@/components/form/configs";
 import { login } from "@/services/auth-service";
 import { loginSchema, type LoginSchema } from "@/validation-schemas/auth-schemas";
 
@@ -54,7 +55,7 @@ export function LoginForm() {
 
             <div>
               <FormField name="password" label={t("password")}>
-                <PasswordInput />
+                <PasswordInput placeholder={DEFAULT_PLACEHOLDER.__Enter} />
               </FormField>
 
               <div className="text-right text-sm">

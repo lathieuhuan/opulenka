@@ -15,6 +15,7 @@ import {
 import { ErrorDecoder } from "@/config/zod";
 import { Label } from "@/lib/components/label";
 import { cn } from "@/lib/utils/functions";
+import { DEFAULT_PLACEHOLDER } from "./configs";
 
 type FormFieldProps<
   TFieldValues extends FieldValues = FieldValues,
@@ -55,7 +56,7 @@ export function FormField<
   transformValue,
 }: FormFieldProps<TFieldValues, TName>) {
   const id = useId();
-  const t = useTranslations("FormErrors");
+  const t = useTranslations("FormField");
   const formItemId = `${id}-form-item`;
   const formMessageId = `${id}-form-item-message`;
 
@@ -88,6 +89,10 @@ export function FormField<
             children.props,
             rest,
           );
+
+          if (mergedProps.placeholder && mergedProps.placeholder in DEFAULT_PLACEHOLDER) {
+            mergedProps.placeholder = t(mergedProps.placeholder);
+          }
 
           controlChild = cloneElement(children, mergedProps);
         }

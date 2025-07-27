@@ -1,5 +1,6 @@
 import { ClassValue } from "clsx";
 import { InputNumber, InputNumberProps } from "@/lib/components/input-number";
+import { DEFAULT_PLACEHOLDER } from "./configs";
 import { FormField } from "./form-field";
 
 type FormInputNumberProps = InputNumberProps & {
@@ -24,7 +25,7 @@ export function FormInputNumber({
       required={required}
       transformValue={(val) => (val === undefined ? "" : val)}
     >
-      <InputNumber {...props} />
+      <InputNumber placeholder={DEFAULT_PLACEHOLDER.__Enter} {...props} />
     </FormField>
   );
 }
