@@ -16,10 +16,10 @@ export function LandingPage() {
             </h3>
             <p className="mb-8 max-w-3xl text-muted-foreground lg:text-lg">{t("description")}</p>
             <div className="flex w-full flex-col justify-center gap-2 sm:flex-row">
-              <Button variant="secondary" className="w-full sm:w-auto" asChild>
+              <Button color="secondary" className="w-full sm:w-auto" asChild>
                 <Link href="/login">{t("ctaSecondary")}</Link>
               </Button>
-              <Button className="w-full sm:w-auto" asChild>
+              <Button className="w-full sm:w-auto" color="primary" asChild>
                 <Link href="/register">{t("ctaPrimary")}</Link>
               </Button>
             </div>
