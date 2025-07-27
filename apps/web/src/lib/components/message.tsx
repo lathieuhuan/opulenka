@@ -18,7 +18,7 @@ type MessageProps = {
 };
 
 function Message(props: MessageProps) {
-  const { size = "small" } = props;
+  const { size = "medium" } = props;
   let icon = props.icon;
   let colorCls = "text-gray-900 bg-white border-transparent";
   const descriptionCls = props.preset ? "text-gray-600" : "text-gray-500";

@@ -7,7 +7,6 @@ import {
   IInvestmentAccountRepository,
   UpdateInvestmentAccountParams,
 } from "@/interfaces/repositories";
-import { OmitNull } from "@/types";
 import { omitNull } from "@/utils/omit-null";
 import { AccountRepository } from "./account-repository";
 
@@ -20,14 +19,14 @@ export class InvestmentAccountRepository
   ): Promise<InvestmentAccountEntity> {
     const baseAccount = await super.createAccount(params);
 
-    const [account] = await this.db
-      .insert(InvestmentAccountTable)
-      .values({
-        accountId: baseAccount.id,
-      })
-      .returning();
+    // const [account] = await this.db
+    //   .insert(InvestmentAccountTable)
+    //   .values({
+    //     accountId: baseAccount.id,
+    //   })
+    //   .returning();
 
-    return this.toInvestmentAccount(baseAccount, omitNull(account));
+    return this.toInvestmentAccount(baseAccount);
   }
 
   override async getAccountByUserIdAndId(
@@ -37,13 +36,13 @@ export class InvestmentAccountRepository
     const baseAccount = await super.getAccountByUserIdAndId(userId, id);
     if (!baseAccount) return null;
 
-    const [account] = await this.db
-      .select()
-      .from(InvestmentAccountTable)
-      .where(eq(InvestmentAccountTable.accountId, id));
-    const investmentAccount = omitNull(account);
+    // const [account] = await this.db
+    //   .select()
+    //   .from(InvestmentAccountTable)
+    //   .where(eq(InvestmentAccountTable.accountId, id));
+    // const investmentAccount = omitNull(account);
 
-    return this.toInvestmentAccount(baseAccount, investmentAccount);
+    return this.toInvestmentAccount(baseAccount);
   }
 
   override async getAccountsByUserId(userId: number): Promise<InvestmentAccountEntity[]> {
@@ -56,9 +55,7 @@ export class InvestmentAccountRepository
       .innerJoin(AccountTable, eq(InvestmentAccountTable.accountId, AccountTable.id))
       .where(eq(AccountTable.userId, userId));
 
-    return queryRecords.map(({ accounts, investment_accounts }) =>
-      this.toInvestmentAccount(omitNull(accounts), omitNull(investment_accounts)),
-    );
+    return queryRecords.map(({ accounts }) => this.toInvestmentAccount(omitNull(accounts)));
   }
 
   override async updateAccount(
@@ -68,13 +65,13 @@ export class InvestmentAccountRepository
     const baseAccount = await super.updateAccount(id, params);
     if (!baseAccount) return null;
 
-    const [account] = await this.db
-      .update(InvestmentAccountTable)
-      .set({})
-      .where(eq(InvestmentAccountTable.accountId, id))
-      .returning();
+    // const [account] = await this.db
+    //   .update(InvestmentAccountTable)
+    //   .set({})
+    //   .where(eq(InvestmentAccountTable.accountId, id))
+    //   .returning();
 
-    return this.toInvestmentAccount(baseAccount, omitNull(account));
+    return this.toInvestmentAccount(baseAccount);
   }
 
   override async deleteAccount(id: number): Promise<boolean> {
@@ -92,12 +89,9 @@ export class InvestmentAccountRepository
     return false;
   }
 
-  private toInvestmentAccount(
-    baseAccount: AccountEntity,
-    investmentAccount: OmitNull<typeof InvestmentAccountTable.$inferSelect>,
-  ) {
+  private toInvestmentAccount(baseAccount: AccountEntity) {
     return {
-      id: baseAccount.id || investmentAccount.id,
+      id: baseAccount.id,
       name: baseAccount.name,
       userId: baseAccount.userId,
       status: baseAccount.status,
