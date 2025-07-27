@@ -1,7 +1,8 @@
 import { z, ZodIssueCode, ZodParsedType } from "zod";
 import { ErrorEncoder } from "./error-processing";
+import { ZOD_ERROR_MESSAGES } from "./error-messages";
 
-const myErrorMap: z.ZodErrorMap = (issue, ctx) => {
+const errorMap: z.ZodErrorMap = (issue, ctx) => {
   let message = ctx.defaultError;
 
   // console.log("=== issue");
@@ -11,13 +12,15 @@ const myErrorMap: z.ZodErrorMap = (issue, ctx) => {
   switch (issue.code) {
     case ZodIssueCode.invalid_type:
       if (issue.received === ZodParsedType.undefined || issue.received === ZodParsedType.null) {
-        message = "REQUIRED_INFO";
+        message = ZOD_ERROR_MESSAGES.REQUIRED_INFO;
+      } else {
+        message = ZOD_ERROR_MESSAGES.INVALID_VALUE;
       }
       break;
     case ZodIssueCode.too_small:
       if (issue.type === "string") {
         if (issue.minimum === 1) {
-          message = "REQUIRED_INFO";
+          message = ZOD_ERROR_MESSAGES.REQUIRED_INFO;
         } else {
           message = ErrorEncoder.minLength(issue.minimum);
         }
@@ -27,6 +30,6 @@ const myErrorMap: z.ZodErrorMap = (issue, ctx) => {
   return { message };
 };
 
-z.setErrorMap(myErrorMap);
+z.setErrorMap(errorMap);
 
 // console.log("==> This file should run once per client");

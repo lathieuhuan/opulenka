@@ -9,9 +9,10 @@ import {
   ControllerRenderProps,
   FieldPath,
   FieldValues,
+  PathValue,
 } from "react-hook-form";
 
-import { ErrorDecoder } from "@/config/zod/error-processing";
+import { ErrorDecoder } from "@/config/zod";
 import { Label } from "@/lib/components/label";
 import { cn } from "@/lib/utils/functions";
 
@@ -19,10 +20,10 @@ type FormFieldProps<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 > = {
-  control: Control<TFieldValues, any>;
+  control?: Control<TFieldValues, any>;
   name: TName;
-  label: string;
-  placeholder?: string;
+  label?: string;
+  required?: boolean;
   className?: ClassValue;
   children:
     | React.JSX.Element
@@ -30,12 +31,29 @@ type FormFieldProps<
         field: ControllerRenderProps<TFieldValues, TName>,
         fieldState: ControllerFieldState,
       ) => React.JSX.Element);
+  /**
+   * Transform value given by the child component before transferring it to the form control.
+   * Currently used for this corner case on InputNumber:
+   * 1. InputNumber onValueChange is passed undefined whenever the value is cleared.
+   * 2. But react-hook-form does not want undefined values, it changes the value back to default value in this case.
+   * 3. So when FormField is used with InputNumber, undefined should be transformed to empty string.
+   * If zod is used in this corner case, it should use custom validation and/or transform.
+   */
+  transformValue?: (value: any) => PathValue<TFieldValues, TName>;
 };
 
 export function FormField<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
->({ control, name, label, className, children }: FormFieldProps<TFieldValues, TName>) {
+>({
+  control,
+  name,
+  label,
+  required,
+  className,
+  children,
+  transformValue,
+}: FormFieldProps<TFieldValues, TName>) {
   const id = useId();
   const t = useTranslations("FormErrors");
   const formItemId = `${id}-form-item`;
@@ -60,14 +78,15 @@ export function FormField<
           controlChild = children(field, fieldState);
         } //
         else {
+          const { onChange, ...rest } = field;
           const mergedProps = Object.assign(
             {
-              onValueChange: (value: string) => {
-                field.onChange(value);
+              onValueChange: (value: any) => {
+                onChange(transformValue ? transformValue(value) : value);
               },
             },
             children.props,
-            field,
+            rest,
           );
 
           controlChild = cloneElement(children, mergedProps);
@@ -77,16 +96,20 @@ export function FormField<
           <div
             id={id}
             data-slot="form-item"
-            className={cn("mb-5 flex flex-col gap-1.5 relative", className)}
+            className={cn("mb-5 flex flex-col gap-2 relative", className)}
           >
-            <Label
-              htmlFor={formItemId}
-              data-slot="form-label"
-              data-error={!!error}
-              className="data-[error=true]:text-error"
-            >
-              {label}
-            </Label>
+            {label ? (
+              <Label
+                htmlFor={formItemId}
+                data-slot="form-label"
+                data-error={!!error}
+                data-disabled={controlChild.props.disabled}
+                className="data-[error=true]:text-error data-[disabled=true]:text-muted-foreground"
+              >
+                {label}
+                {required && <span className="text-destructive">*</span>}
+              </Label>
+            ) : null}
             <Slot
               id={formItemId}
               data-slot="form-control"

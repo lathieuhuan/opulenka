@@ -1,16 +1,19 @@
 import { CircleX } from "lucide-react";
-import { useRef } from "react";
+import { ChangeEvent, useRef } from "react";
 
 import { cn, mergeRefs } from "@/lib/utils/functions";
+import { useControllableState } from "../hooks/use-controllable-state";
 import { Button, type ButtonProps } from "./button";
 import { InputBase } from "./input-base";
 
 // self-made
 
-type InputProps = Omit<React.ComponentProps<"input">, "onChange"> & {
+type InputProps = Omit<React.ComponentProps<"input">, "value" | "defaultValue"> & {
+  value?: string;
+  defaultValue?: string;
   action?: ButtonProps;
   allowClear?: boolean;
-  onValueChange?: (value?: string) => void;
+  onValueChange?: (value: string) => void; // for FormField integration
 };
 
 function Input({
@@ -18,18 +21,28 @@ function Input({
   ref: externalRef,
   allowClear = true,
   action,
+  value,
+  onChange,
   onValueChange,
   ...baseProps
 }: InputProps) {
+  const [_value, _setValue] = useControllableState({
+    prop: value,
+    defaultProp: baseProps.defaultValue ?? "",
+    onChange: (value) => {
+      onValueChange?.(value);
+    },
+  });
   const internalRef = useRef<HTMLInputElement>(null);
-  const showClearBtn = Boolean(allowClear && baseProps.value);
+  const showClearBtn = Boolean(allowClear && _value);
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onValueChange?.(e.target.value);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    onChange?.(e);
+    _setValue?.(e.target.value);
   };
 
   const onClickClear = () => {
-    onValueChange?.("");
+    _setValue?.("");
     internalRef.current?.focus();
   };
 
@@ -38,13 +51,14 @@ function Input({
       <InputBase
         className={cn(showClearBtn && "pr-10", cls, className)}
         ref={mergeRefs(internalRef, externalRef)}
-        onChange={onChange}
+        value={_value}
+        onChange={handleChange}
         {...baseProps}
       />
       {showClearBtn ? (
         <button
           type="button"
-          className="absolute right-2 size-6 flex items-center justify-center text-foreground hover:text-destructive opacity-60"
+          className="absolute right-2 size-6 flex items-center justify-center text-muted-foreground hover:text-destructive"
           tabIndex={-1}
           onClick={onClickClear}
         >
@@ -62,7 +76,10 @@ function Input({
           type="button"
           variant="outline"
           {...action}
-          className={cn("rounded-l-none", action.className)}
+          className={cn(
+            "bg-transparent dark:bg-input/30 border-input rounded-l-none",
+            action.className,
+          )}
         />
       </div>
     );
@@ -72,3 +89,4 @@ function Input({
 }
 
 export { Input, type InputProps };
+

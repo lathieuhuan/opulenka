@@ -4,9 +4,9 @@ import { z } from "zod";
 
 import { RequestInterceptor } from "../procedure";
 
-export function validateBody<TBodyShape, TPreContext = void>(
-  schema: z.ZodSchema<TBodyShape>,
-): RequestInterceptor<{ body: TBodyShape } & TPreContext, TPreContext> {
+export function validateBody<TSchema extends z.ZodType, TPreContext = void>(
+  schema: TSchema,
+): RequestInterceptor<{ body: z.infer<TSchema> } & TPreContext, TPreContext> {
   //
   return async (request: NextRequest, ctx: TPreContext) => {
     const contentType = request.headers.get("Content-Type");
