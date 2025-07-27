@@ -11,12 +11,11 @@ import { login } from "@/services/auth-service";
 import { loginSchema, type LoginSchema } from "@/validation-schemas/auth-schemas";
 
 // Components
-import { Form, FormField } from "@/components/form";
+import { Form, FormField, FormInput } from "@/components/form";
 import { PasswordInput } from "@/components/password-input";
 import { TextLink } from "@/components/text-link";
 import { Button } from "@/lib/components/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/lib/components/card";
-import { Input } from "@/lib/components/input";
 import { Message } from "@/lib/components/message";
 
 export function LoginForm() {
@@ -25,10 +24,6 @@ export function LoginForm() {
 
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
     mode: "onTouched",
     reValidateMode: "onChange",
   });
@@ -55,12 +50,10 @@ export function LoginForm() {
       <CardContent>
         <Form form={form} onSubmit={handleSubmit} className="space-y-6">
           <div className="grid gap-2">
-            <FormField control={form.control} name="email" label={t("email")}>
-              <Input />
-            </FormField>
+            <FormInput name="email" label={t("email")} />
 
             <div>
-              <FormField control={form.control} name="password" label={t("password")}>
+              <FormField name="password" label={t("password")}>
                 <PasswordInput />
               </FormField>
 

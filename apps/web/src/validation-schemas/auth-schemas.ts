@@ -1,16 +1,10 @@
 import { z } from "zod";
-import { StringUtils } from "@/lib/utils/string-utils";
+import { requiredString } from "./schema-parts";
 
 export const registerSchema = z
   .object({
-    email: z
-      .string()
-      .nonempty()
-      .refine((value) => !StringUtils.isEmpty(value), "INVALID_VALUE"),
-    password: z
-      .string()
-      .min(6)
-      .refine((value) => !StringUtils.isEmpty(value), "INVALID_VALUE"),
+    email: requiredString,
+    password: requiredString,
     passwordConfirm: z.string().nonempty(),
   })
   .superRefine(({ passwordConfirm, password }, ctx) => {
@@ -24,14 +18,8 @@ export const registerSchema = z
   });
 
 export const loginSchema = z.object({
-  email: z
-    .string()
-    .nonempty()
-    .refine((value) => !StringUtils.isEmpty(value), "INVALID_VALUE"),
-  password: z
-    .string()
-    .nonempty()
-    .refine((value) => !StringUtils.isEmpty(value), "INVALID_VALUE"),
+  email: requiredString,
+  password: requiredString,
 });
 
 export type RegisterSchema = z.infer<typeof registerSchema>;

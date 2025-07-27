@@ -1,19 +1,21 @@
 import { FormProvider, UseFormReturn, type FieldValues } from "react-hook-form";
 
 export const Form = <TFieldValues extends FieldValues = FieldValues>({
-  children,
   form,
-  onSubmit,
+  id,
   className,
+  children,
+  onSubmit,
 }: {
   form: UseFormReturn<TFieldValues>;
+  id?: string;
   className?: string;
   children: React.ReactNode;
   onSubmit: (data: TFieldValues) => void;
 }) => {
   return (
     <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className={className}>
+      <form id={id} onSubmit={form.handleSubmit(onSubmit)} className={className}>
         {children}
       </form>
     </FormProvider>
