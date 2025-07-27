@@ -1,4 +1,13 @@
 {
+  "Common": {
+    "add": "Add",
+    "edit": "Edit",
+    "cashAccount": "Cash Account",
+    "checkingAccount": "Checking Account",
+    "savingsAccount": "Savings Account",
+    "creditCard": "Credit Card",
+    "investmentAccount": "Investment Account"
+  },
   "FormField": {
     "REQUIRED_INFO": "This field is required",
     "MIN_LENGTH": "Please enter at least {min} characters",
@@ -40,5 +49,13 @@
   },
   "AccountsPage": {
     "title": "Accounts Overview"
+  },
+  "AccountsOverview": {
+    "title": "Your Accounts",
+    "createSuccess": "Account created successfully",
+    "updateSuccess": "Account updated successfully",
+    "createError": "Failed to create account. Please try again later.",
+    "updateError": "Failed to edit account. Please try again later.",
+    "noAccounts": "No accounts found"
   }
 }

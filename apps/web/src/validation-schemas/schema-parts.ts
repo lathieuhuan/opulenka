@@ -13,7 +13,8 @@ export const optionalString = z
   .refine(
     (value) => value === undefined || !StringUtils.isEmpty(value),
     ZOD_ERROR_MESSAGES.INVALID_VALUE,
-  );
+  )
+  .transform((value) => (value === undefined ? undefined : value));
 
 // if value is invalid per refine, it will not go to transform
 

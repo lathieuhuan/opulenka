@@ -1,11 +1,15 @@
 "use client";
 import { useQueryClient } from "@tanstack/react-query";
 import { PackageOpen, Plus, RefreshCcw } from "lucide-react";
-
-import { AccountFromGetAccounts } from "@/services/account-service";
-import { EAccountType, ECurrency } from "@opulenka/service";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
 
 import { accountTypeMap } from "@/constants/enum-maps";
+import { AccountFromGetAccounts } from "@/services/account-service";
+import { notifier } from "@/utils/notifier";
+import { EAccountType, ECurrency } from "@opulenka/service";
+import { AccountFormProps, AccountFormState } from "./types";
+
 import { Button } from "@/lib/components/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/lib/components/card";
 import {
@@ -14,8 +18,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/lib/components/dropdown-menu";
+import { Modal } from "@/lib/components/modal";
+import { CashAccountCreateForm } from "./account-create-forms";
 import { AccountOverview } from "./account-overview";
+import { CashAccountUpdateForm } from "./account-update-forms";
 
+const FORM_ID = "account-form";
 const ACCOUNT_TYPE_OPTIONS = [
   EAccountType.CASH,
   EAccountType.CREDIT_CARD,
@@ -24,17 +32,97 @@ const ACCOUNT_TYPE_OPTIONS = [
   EAccountType.INVESTMENT,
 ];
 
+type AccountFormModal = {
+  isActive: boolean;
+  isLoading: boolean;
+  updateAccountId: number | null;
+  type: EAccountType;
+};
+
 type AccountsOverviewProps = {
   accounts: AccountFromGetAccounts[];
   currency: ECurrency;
 };
 
 export function AccountsOverview({ accounts, currency }: AccountsOverviewProps) {
+  const t = useTranslations("AccountsOverview");
+  const tC = useTranslations("Common");
   const queryClient = useQueryClient();
+  const [accountFormModal, setAccountFormModal] = useState<AccountFormModal>({
+    isActive: false,
+    isLoading: false,
+    updateAccountId: null,
+    type: EAccountType.CASH,
+  });
+  const isAccountCreateModal = accountFormModal.updateAccountId === null;
 
   const handleRefreshAccounts = () => {
     queryClient.invalidateQueries({ queryKey: ["accounts"] });
   };
+
+  const updateAccountFormModal = (newState: Partial<typeof accountFormModal>) => {
+    setAccountFormModal((prev) => ({
+      ...prev,
+      ...newState,
+    }));
+  };
+
+  const openAccountFormModal = (type: EAccountType, updateAccountId: number | null = null) => {
+    updateAccountFormModal({
+      isActive: true,
+      isLoading: false,
+      updateAccountId,
+      type,
+    });
+  };
+
+  const handleAccountFormStateChange = (state: AccountFormState) => {
+    switch (state) {
+      case "success":
+        notifier.notify(t(isAccountCreateModal ? "createSuccess" : "updateSuccess"), "success");
+        queryClient.invalidateQueries({ queryKey: ["accounts"] });
+        updateAccountFormModal({ isActive: false });
+        break;
+      case "loading":
+        updateAccountFormModal({ isLoading: true });
+        break;
+      case "error":
+      case "idle":
+        updateAccountFormModal({ isLoading: false });
+        break;
+    }
+  };
+
+  const accountModalTitle = [
+    isAccountCreateModal ? tC("add") : tC("edit"),
+    tC(accountTypeMap[accountFormModal.type]),
+  ].join(" ");
+
+  let accountForm: React.ReactNode | null = null;
+  const accountFormProps: AccountFormProps = {
+    id: FORM_ID,
+    defaultErrorMsg: t(isAccountCreateModal ? "createError" : "updateError"),
+    onStateChange: handleAccountFormStateChange,
+  };
+
+  if (isAccountCreateModal) {
+    switch (accountFormModal.type) {
+      case EAccountType.CASH:
+        accountForm = <CashAccountCreateForm {...accountFormProps} />;
+        break;
+    }
+  } else if (accountFormModal.updateAccountId !== null) {
+    switch (accountFormModal.type) {
+      case EAccountType.CASH:
+        accountForm = (
+          <CashAccountUpdateForm
+            {...accountFormProps}
+            accountId={accountFormModal.updateAccountId}
+          />
+        );
+        break;
+    }
+  }
 
   return (
     <section>
@@ -42,7 +130,7 @@ export function AccountsOverview({ accounts, currency }: AccountsOverviewProps) 
         <CardHeader>
           <div className="flex justify-between items-center">
             <CardTitle className="text-lg flex items-center gap-2">
-              Your Accounts
+              {t("title")}
               <Button variant="ghost" size="icon" onClick={handleRefreshAccounts}>
                 <RefreshCcw />
               </Button>
@@ -52,12 +140,14 @@ export function AccountsOverview({ accounts, currency }: AccountsOverviewProps) 
               <DropdownMenuTrigger asChild>
                 <Button>
                   <Plus className="size-5" />
-                  Add
+                  {tC("add")}
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 {ACCOUNT_TYPE_OPTIONS.map((option) => (
-                  <DropdownMenuItem key={option}>{accountTypeMap[option]}</DropdownMenuItem>
+                  <DropdownMenuItem key={option} onClick={() => openAccountFormModal(option)}>
+                    {tC(accountTypeMap[option])}
+                  </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
@@ -68,7 +158,7 @@ export function AccountsOverview({ accounts, currency }: AccountsOverviewProps) 
           {accounts.length === 0 ? (
             <div className="text-center text-muted-foreground py-8">
               <PackageOpen className="size-10 mx-auto mb-4" />
-              <p>No accounts found</p>
+              <p>{t("noAccounts")}</p>
             </div>
           ) : (
             accounts.map((account) => (
@@ -77,12 +167,26 @@ export function AccountsOverview({ accounts, currency }: AccountsOverviewProps) 
                 account={account}
                 currency={currency}
                 onViewTransactions={() => {}}
-                onEdit={() => {}}
+                onEdit={() => openAccountFormModal(account.type, account.id)}
               />
             ))
           )}
         </CardContent>
       </Card>
+
+      <Modal
+        title={accountModalTitle}
+        isActive={accountFormModal.isActive}
+        isLoading={accountFormModal.isLoading}
+        confirmBtnProps={{
+          form: FORM_ID,
+          type: "submit",
+          disabled: accountFormModal.isLoading,
+        }}
+        onClose={() => updateAccountFormModal({ isActive: false })}
+      >
+        {accountForm}
+      </Modal>
     </section>
   );
 }

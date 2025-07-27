@@ -17,6 +17,10 @@ const errorMap: z.ZodErrorMap = (issue, ctx) => {
         message = ZOD_ERROR_MESSAGES.INVALID_VALUE;
       }
       break;
+    case ZodIssueCode.invalid_enum_value:
+    case ZodIssueCode.invalid_literal:
+      message = ZOD_ERROR_MESSAGES.INVALID_VALUE;
+      break;
     case ZodIssueCode.too_small:
       if (issue.type === "string") {
         if (issue.minimum === 1) {
