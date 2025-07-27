@@ -7,7 +7,7 @@ import { DefaultContext, Procedure } from "./procedure";
 
 // type ServiceContext = OmitExact<OpulenkaService, "configureDatabase">;
 
-type BaseContext = DefaultContext & {
+export type BaseContext = DefaultContext & {
   service: ServiceProvider["service"];
 };
 

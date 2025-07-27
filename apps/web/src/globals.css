@@ -22,11 +22,12 @@
   --color-sidebar-primary: var(--sidebar-primary);
   --color-header: var(--header);
   --color-header-foreground: var(--header-foreground);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
+  --color-chart-0: var(--chart-0);
   --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -94,6 +95,7 @@
   --border: hsl(223.81 -173% 100% / 0.1);
   --input: hsl(223.81 -173% 100% / 0.15);
   --ring: hsl(25.02 6% 45%);
+  --chart-0: hsl(216.91 5% 7%);
   --chart-1: hsl(225.35 84% 49%);
   --chart-2: hsl(159.74 100% 37%);
   --chart-3: hsl(36.49 100% 50%);
