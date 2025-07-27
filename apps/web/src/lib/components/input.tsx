@@ -77,6 +77,7 @@ function Input({
         <Button
           type="button"
           variant="outline"
+          disabled={disabled}
           {...action}
           className={cn(
             "bg-transparent dark:bg-input/30 border-input rounded-l-none",
