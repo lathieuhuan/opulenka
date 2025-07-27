@@ -81,7 +81,7 @@ export function RegisterForm() {
           </div>
 
           <div className="space-y-4">
-            {error && <Message preset="error" size="small" message={error.message} />}
+            {error && <Message preset="error" message={error.message} />}
 
             <Button type="submit" className="w-full" color="primary" disabled={isPending}>
               <span>{t("register")}</span>
