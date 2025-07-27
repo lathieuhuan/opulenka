@@ -34,8 +34,7 @@ export function RegisterForm() {
   });
 
   const handleSubmit = async (data: RegisterSchema) => {
-    // tryRegister(data);
-    console.log(data);
+    tryRegister(data);
   };
 
   return (

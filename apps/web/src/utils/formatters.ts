@@ -1,13 +1,17 @@
-export function formatCurrency(
+import { ECurrency } from "@opulenka/service";
+
+export function formatAmount(
   amount: number,
-  currency = "USD",
+  currency: ECurrency,
   options?: Intl.NumberFormatOptions,
 ): string {
+  const fractionDigits = currency === ECurrency.VND ? 0 : 2;
+
   const defaultOptions: Intl.NumberFormatOptions = {
     style: "currency",
     currency,
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+    minimumFractionDigits: fractionDigits,
+    maximumFractionDigits: fractionDigits,
   };
 
   const formatter = new Intl.NumberFormat("en-US", { ...defaultOptions, ...options });
