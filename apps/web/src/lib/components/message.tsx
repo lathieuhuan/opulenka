@@ -7,10 +7,11 @@ import { Button, ButtonProps } from "./button";
 type Action = Omit<ButtonProps, "size">;
 
 type MessageProps = {
+  className?: string;
   preset?: "info" | "success" | "warning" | "error";
   icon?: React.JSX.Element;
   /** Default to "medium" */
-  size?: "small" | "medium";
+  size?: "medium" | "large";
   message: string;
   description?: string;
   actions?: Action | Action[];
@@ -100,9 +101,10 @@ function Message(props: MessageProps) {
   return (
     <div
       className={cn(
-        "w-full min-w-60 md:max-w-[364px] flex items-start shadow-lg ring-1 ring-black/10 border",
-        size === "small" ? "px-4 py-2 rounded-md" : "p-4 rounded-lg",
+        "w-full flex items-start shadow-lg ring-1 ring-black/10 border",
+        size === "medium" ? "px-4 py-2 rounded-md" : "p-4 rounded-lg",
         colorCls,
+        props.className,
       )}
     >
       {icon && (

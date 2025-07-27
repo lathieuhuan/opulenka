@@ -36,7 +36,7 @@ export function Select({
   value,
   defaultValue,
   block,
-  allowClear = true,
+  allowClear,
   onValueChange,
   ...props
 }: SelectProps) {
@@ -47,7 +47,7 @@ export function Select({
       onValueChange?.(value);
     },
   });
-  const isClearable = allowClear && _value !== undefined && _value !== "";
+  const isClearable = allowClear && !props.disabled && _value !== undefined && _value !== "";
 
   const handleClear = () => {
     _setValue("");
