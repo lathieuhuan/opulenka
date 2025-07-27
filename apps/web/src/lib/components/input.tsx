@@ -22,6 +22,7 @@ function Input({
   allowClear = true,
   action,
   value,
+  disabled,
   onChange,
   onValueChange,
   ...baseProps
@@ -47,15 +48,16 @@ function Input({
   };
 
   const renderInput = (cls?: string) => (
-    <div className="relative flex w-full items-center">
+    <div className={cn("relative flex w-full items-center", disabled && "cursor-not-allowed")}>
       <InputBase
         className={cn(showClearBtn && "pr-10", cls, className)}
         ref={mergeRefs(internalRef, externalRef)}
         value={_value}
+        disabled={disabled}
         onChange={handleChange}
         {...baseProps}
       />
-      {showClearBtn ? (
+      {showClearBtn && !disabled ? (
         <button
           type="button"
           className="absolute right-2 size-6 flex items-center justify-center text-muted-foreground hover:text-destructive"
@@ -89,4 +91,3 @@ function Input({
 }
 
 export { Input, type InputProps };
-

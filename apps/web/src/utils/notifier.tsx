@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { ButtonProps } from "@/lib/components/button";
 import { Message, MessageProps } from "@/lib/components/message";
 import { ArrayUtils } from "@/lib/utils/array-utils";
+import { cn } from "@/lib/utils/functions";
 
 type NotiControl = {
   dismiss: () => void;
@@ -49,7 +50,14 @@ function notify(config: MessageConfig, options: Options = {}) {
       ? ArrayUtils.convertOneOrAll(_config.actions, (action) => createAction(action, id))
       : undefined;
 
-    return <Message {..._config} preset={preset} actions={actions} />;
+    return (
+      <Message
+        {..._config}
+        preset={preset}
+        actions={actions}
+        className={cn("min-w-60 md:max-w-[364px]", _config.className)}
+      />
+    );
   }, sonnerOptions);
 }
 
