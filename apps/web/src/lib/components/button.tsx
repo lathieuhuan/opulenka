@@ -10,14 +10,22 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
-        destructive:
-          "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
-        outline:
-          "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
-        secondary: "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
-        link: "text-primary underline-offset-4 hover:underline",
+        default: "shadow-xs",
+        outline: "border shadow-xs",
+        ghost: "hover:bg-accent/50",
+        // default: "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
+        // destructive:
+        //   "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
+        // outline:
+        //   "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
+        // secondary: "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
+        // ghost: "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
+      },
+      color: {
+        default: "",
+        primary: "",
+        secondary: "",
+        destructive: "",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
@@ -27,8 +35,79 @@ const buttonVariants = cva(
         icon: "size-9",
       },
     },
+    compoundVariants: [
+      {
+        variant: "default",
+        color: "primary",
+        className: "bg-primary text-primary-foreground hover:bg-primary/90",
+      },
+      {
+        variant: "default",
+        color: "secondary",
+        className: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+      },
+      {
+        variant: "default",
+        color: "default", // default uses secondary color temporarily
+        className: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+      },
+      {
+        variant: "default",
+        color: "destructive",
+        className: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+      },
+      {
+        variant: ["outline", "ghost"],
+        color: "primary",
+        className:
+          "text-primary hover:text-primary/90",
+      },
+      {
+        variant: ["outline", "ghost"],
+        color: "secondary",
+        className:
+          "text-secondary hover:text-secondary/90",
+      },
+      {
+        variant: ["outline", "ghost"],
+        color: "default", // default uses secondary color temporarily
+        className:
+          "text-secondary hover:text-secondary/90",
+      },
+      {
+        variant: ["outline", "ghost"],
+        color: "destructive",
+        className:
+          "text-destructive hover:text-destructive/90",
+      },
+      {
+        variant: "outline",
+        color: "primary",
+        className:
+          "border-primary hover:border-primary/90 hover:bg-primary/5",
+      },
+      {
+        variant: "outline",
+        color: "secondary",
+        className:
+          "border-secondary hover:border-secondary/90 hover:bg-secondary/5",
+      },
+      {
+        variant: "outline",
+        color: "default", // default uses secondary color temporarily
+        className:
+          "border-secondary hover:border-secondary/90 hover:bg-secondary/5",
+      },
+      {
+        variant: "outline",
+        color: "destructive",
+        className:
+          "border-destructive hover:border-destructive/90 hover:bg-destructive/5",
+      },
+    ],
     defaultVariants: {
       variant: "default",
+      color: "default",
       size: "default",
     },
   },
@@ -39,13 +118,14 @@ type ButtonProps = React.ComponentProps<"button"> &
     asChild?: boolean;
   };
 
-function Button({ className, variant, size, asChild = false, ...props }: ButtonProps) {
+function Button({ className, variant, color, size, asChild = false, ...props }: ButtonProps) {
   const Comp = asChild ? Slot : "button";
 
   return (
     <Comp
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(buttonVariants({ variant, color, size, className }))}
+      type="button"
       {...props}
     />
   );
