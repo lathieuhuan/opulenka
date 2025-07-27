@@ -46,6 +46,9 @@ src
   - **components**: Library components
   - **hooks**: Library hooks
   - **utils**: Library utility functions
-- **services**: Service layer for data fetching and business logic
-- **api**: API providers, or the Controllers
+- **services**: Front-end service layer for data fetching and business logic
+- **api**: API providers, or the Controllers of Back-end
 
+## Back-end service
+
+Package @opulenka/service provide Back-end service for the Controllers.

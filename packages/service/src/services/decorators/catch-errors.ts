@@ -17,10 +17,12 @@ export function CatchErrors(originalMethod: any) {
       // General errors like database errors are mapped here
 
       if (error instanceof NeonDbError) {
-        console.log("NEON_ERROR", error.message);
+        console.log("NEON_ERROR");
+        console.error(error);
       } //
       else if (error instanceof Error) {
-        console.log("ERROR", error.message);
+        console.log("ERROR");
+        console.error(error);
       }
 
       return new ErrorResponse(500, COMMON_ERRORS.SYSTEM_ERROR);

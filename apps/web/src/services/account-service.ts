@@ -41,3 +41,28 @@ export function getCashAccountById(accountId: number, config?: RequestConfig) {
     ...config,
   });
 }
+
+// Investment Account
+
+export function createInvestmentAccount(
+  req: Omit<CreateAccountRequest, "userId">,
+  config?: RequestConfig,
+) {
+  return http.request<CreateAccountResponse>("POST", "/accounts/investment", {
+    body: req,
+    ...config,
+  });
+}
+
+export function updateInvestmentAccount(req: UpdateAccountRequest, config?: RequestConfig) {
+  return http.request<UpdateAccountResponse>("PUT", `/accounts/investment/${req.id}`, {
+    body: req.data,
+    ...config,
+  });
+}
+
+export function getInvestmentAccountById(accountId: number, config?: RequestConfig) {
+  return http.request<GetAccountResponse>("GET", `/accounts/investment/${accountId}`, {
+    ...config,
+  });
+}
