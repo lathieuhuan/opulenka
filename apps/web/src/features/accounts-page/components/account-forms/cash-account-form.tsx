@@ -6,7 +6,7 @@ import {
   CreateCashAccountSchema,
   createCashAccountSchema,
 } from "@/validation-schemas/account-schemas";
-import { EAccountType, ECurrency } from "@opulenka/service";
+import { ECurrency } from "@opulenka/service";
 import { CURRENCY_OPTIONS } from "../../constants/options";
 
 // Components
@@ -33,7 +33,6 @@ export function CashAccountForm({
   const form = useForm({
     resolver: zodResolver(createCashAccountSchema),
     defaultValues: {
-      type: EAccountType.CASH,
       currency: ECurrency.VND,
       initialBalance: 0,
     },

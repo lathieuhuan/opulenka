@@ -1,11 +1,10 @@
 import { z } from "zod";
 
-import { EAccountType, ECurrency } from "@opulenka/service";
+import { ECurrency } from "@opulenka/service";
 import { optionalString, requiredNumber, requiredString } from "../schema-parts";
 
 export const createAccountSchema = z.object({
   name: requiredString,
-  type: z.nativeEnum(EAccountType),
   description: optionalString,
   initialBalance: requiredNumber,
   currency: z.nativeEnum(ECurrency),
