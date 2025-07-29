@@ -19,9 +19,17 @@ import {
   DropdownMenuTrigger,
 } from "@/lib/components/dropdown-menu";
 import { Modal } from "@/lib/components/modal";
-import { CashAccountCreateForm, InvestmentAccountCreateForm } from "./account-create-forms";
+import {
+  CashAccountCreateForm,
+  CheckingAccountCreateForm,
+  InvestmentAccountCreateForm,
+} from "./account-create-forms";
 import { AccountOverview } from "./account-overview";
-import { CashAccountUpdateForm, InvestmentAccountUpdateForm } from "./account-update-forms";
+import {
+  CashAccountUpdateForm,
+  CheckingAccountUpdateForm,
+  InvestmentAccountUpdateForm,
+} from "./account-update-forms";
 
 const FORM_ID = "account-form";
 const ACCOUNT_TYPE_OPTIONS = [
@@ -113,6 +121,9 @@ export function AccountsOverview({ accounts, currency }: AccountsOverviewProps) 
       case EAccountType.INVESTMENT:
         accountForm = <InvestmentAccountCreateForm {...accountFormProps} />;
         break;
+      case EAccountType.CHECKING:
+        accountForm = <CheckingAccountCreateForm {...accountFormProps} />;
+        break;
     }
   } else if (accountFormModal.updateAccountId !== null) {
     switch (accountFormModal.type) {
@@ -127,6 +138,14 @@ export function AccountsOverview({ accounts, currency }: AccountsOverviewProps) 
       case EAccountType.INVESTMENT:
         accountForm = (
           <InvestmentAccountUpdateForm
+            {...accountFormProps}
+            accountId={accountFormModal.updateAccountId}
+          />
+        );
+        break;
+      case EAccountType.CHECKING:
+        accountForm = (
+          <CheckingAccountUpdateForm
             {...accountFormProps}
             accountId={accountFormModal.updateAccountId}
           />

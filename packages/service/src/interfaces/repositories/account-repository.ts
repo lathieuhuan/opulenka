@@ -15,12 +15,10 @@ export type CreateAccountParams = {
 export type UpdateAccountParams = Partial<{
   name: string;
   status: EAccountStatus;
-  type: EAccountType;
   accountNumber: string;
   serviceProvider: string;
   description: string;
   initialBalance: number;
-  currency: ECurrency;
 }>;
 
 export interface IAccountRepository<
