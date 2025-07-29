@@ -1,6 +1,10 @@
 import {
   CreateAccountRequest,
   CreateAccountResponse,
+  CreateInvestmentAccountRequest,
+  CreateInvestmentAccountResponse,
+  UpdateInvestmentAccountRequest,
+  UpdateInvestmentAccountResponse,
   DataOf,
   GetAccountResponse,
   GetAccountsResponse,
@@ -17,10 +21,12 @@ export function getAccounts(config?: RequestConfig) {
   });
 }
 
+type OmittedCreateProps = "userId" | "type";
+
 // Cash Account
 
 export function createCashAccount(
-  req: Omit<CreateAccountRequest, "userId">,
+  req: Omit<CreateAccountRequest, OmittedCreateProps>,
   config?: RequestConfig,
 ) {
   return http.request<CreateAccountResponse>("POST", "/accounts/cash", {
@@ -42,20 +48,48 @@ export function getCashAccountById(accountId: number, config?: RequestConfig) {
   });
 }
 
-// Investment Account
+// Checking Account
 
-export function createInvestmentAccount(
-  req: Omit<CreateAccountRequest, "userId">,
+export function createCheckingAccount(
+  req: Omit<CreateAccountRequest, OmittedCreateProps>,
   config?: RequestConfig,
 ) {
-  return http.request<CreateAccountResponse>("POST", "/accounts/investment", {
+  return http.request<CreateAccountResponse>("POST", "/accounts/checking", {
     body: req,
     ...config,
   });
 }
 
-export function updateInvestmentAccount(req: UpdateAccountRequest, config?: RequestConfig) {
-  return http.request<UpdateAccountResponse>("PUT", `/accounts/investment/${req.id}`, {
+export function updateCheckingAccount(req: UpdateAccountRequest, config?: RequestConfig) {
+  return http.request<UpdateAccountResponse>("PUT", `/accounts/checking/${req.id}`, {
+    body: req.data,
+    ...config,
+  });
+}
+
+export function getCheckingAccountById(accountId: number, config?: RequestConfig) {
+  return http.request<GetAccountResponse>("GET", `/accounts/checking/${accountId}`, {
+    ...config,
+  });
+}
+
+// Investment Account
+
+export function createInvestmentAccount(
+  req: Omit<CreateInvestmentAccountRequest, OmittedCreateProps>,
+  config?: RequestConfig,
+) {
+  return http.request<CreateInvestmentAccountResponse>("POST", "/accounts/investment", {
+    body: req,
+    ...config,
+  });
+}
+
+export function updateInvestmentAccount(
+  req: UpdateInvestmentAccountRequest,
+  config?: RequestConfig,
+) {
+  return http.request<UpdateInvestmentAccountResponse>("PUT", `/accounts/investment/${req.id}`, {
     body: req.data,
     ...config,
   });

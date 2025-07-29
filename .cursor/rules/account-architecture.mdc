@@ -1,0 +1,50 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+
+# Account Architecture of Opulenka system
+
+## Introduction
+
+Accounts are the backbone of the main feature in Opulenka: money flow management. Accounts represent the foundational entities that enable management of transactions, budgets, and financial goals.
+
+Accounts in Opulenka serve as the primary containers for financial activity, encompassing various types of financial instruments like cash accounts, savings accounts, investment accounts... These accounts form the central hub around which all other financial management features revolve - from transaction categorization and budget tracking to savings goal management and comprehensive financial analytics.
+
+The account system is designed to provide users with a unified view of their financial landscape, enabling seamless money flow analysis across different account types. Each account maintains its own transaction history, balance tracking, and integration capabilities with Opulenka's broader feature set including bill management, subscription tracking, and automated reporting systems.
+
+By establishing a robust account architecture, Opulenka ensures that users can effectively monitor their income versus expenses, generate detailed spending reports, and receive actionable improvement suggestions - all anchored by the reliable foundation that accounts provide to the overall wealth management experience.
+
+## Account Model Architecture
+
+The Opulenka account system follows a hierarchical database design that is built around a base-table-plus-extensions pattern, enabling both common account features and specialized account type capabilities.
+
+### Core Account Entity
+
+At the foundation lies the **AccountTable**, which serves as the primary account entity containing all common attributes shared across different account types:
+
+- **Identity & Ownership**: Each account has a unique identifier and belongs to a specific user through a foreign key relationship
+- **Account Metadata**: Name, account number, service provider, and optional description
+- **Financial State**: Initial balance, current balance, and currency denomination (USD/VND)
+- **Status Management**: Active/Inactive status tracking with default active state
+- **Account Classification**: Type field distinguishing between CASH, CHECKING, SAVINGS, CREDIT_CARD, and INVESTMENT accounts
+
+### Account Type Specialization
+
+The system employs a table-per-type extension pattern where specialized account types inherit from the base AccountTable while adding their unique attributes:
+
+**Savings Accounts**: Shaped by SavingsAccountTable for savings management, adding properties like interest rate.
+
+**Credit Card Accounts**: Shaped by CreditCardTable for credit card management, adding properties like limit.
+
+**Investment Accounts**: Shaped by InvestmentAccountTable for investment management.
+
+**Cash & Checking Accounts**: Utilize the base AccountTable directly, as these account types require only the standard account features without additional specialization.
+
+### Relationship Architecture
+
+The account model integrates seamlessly within Opulenka's broader data architecture:
+
+- **User-Account Relationship**: One-to-many relationship allowing users to maintain multiple accounts of various types, supporting comprehensive personal finance management
+- **Account-Extension Relationship**: One-to-one relationships between base accounts and their specialized extensions, ensuring data integrity while enabling type-specific functionality

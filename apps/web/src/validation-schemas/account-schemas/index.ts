@@ -6,6 +6,13 @@ export {
 } from "./account-schemas";
 
 export {
+  createCheckingAccountSchema,
+  updateCheckingAccountSchema,
+  type CreateCheckingAccountSchema,
+  type UpdateCheckingAccountSchema,
+} from "./checking-account-schemas";
+
+export {
   createInvestmentAccountSchema,
   updateInvestmentAccountSchema,
   type CreateInvestmentAccountSchema,

@@ -15,3 +15,9 @@ Opulenka is an intuitive and powerful financial management tool, designed to hel
 4. Bill & Subscription Management.
 5. Savings Goal Management: setting and tracking, periodical deposit.
 6. Reports & Analytics: Spending Reports, Income vs. Expense Reports, Money Flow Analysis and Improvement Suggestions.
+
+## Project Technical
+
+- This project is build with mono-repo pattern managed by turbo
+- Use pnpm for package management and command lines
+- Follow guide in markdown (.md) files (if any) in the same folder as your working file
