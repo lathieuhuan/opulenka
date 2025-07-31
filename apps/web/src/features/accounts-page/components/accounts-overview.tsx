@@ -22,6 +22,7 @@ import { Modal } from "@/lib/components/modal";
 import {
   CashAccountCreateForm,
   CheckingAccountCreateForm,
+  CreditCardCreateForm,
   InvestmentAccountCreateForm,
   SavingsAccountCreateForm,
 } from "./account-create-forms";
@@ -29,6 +30,7 @@ import { AccountOverview } from "./account-overview";
 import {
   CashAccountUpdateForm,
   CheckingAccountUpdateForm,
+  CreditCardUpdateForm,
   InvestmentAccountUpdateForm,
   SavingsAccountUpdateForm,
 } from "./account-update-forms";
@@ -129,6 +131,9 @@ export function AccountsOverview({ accounts, currency }: AccountsOverviewProps) 
       case EAccountType.SAVINGS:
         accountForm = <SavingsAccountCreateForm {...accountFormProps} />;
         break;
+      case EAccountType.CREDIT_CARD:
+        accountForm = <CreditCardCreateForm {...accountFormProps} />;
+        break;
     }
   } else if (accountFormModal.updateAccountId !== null) {
     switch (accountFormModal.type) {
@@ -159,6 +164,14 @@ export function AccountsOverview({ accounts, currency }: AccountsOverviewProps) 
       case EAccountType.SAVINGS:
         accountForm = (
           <SavingsAccountUpdateForm
+            {...accountFormProps}
+            accountId={accountFormModal.updateAccountId}
+          />
+        );
+        break;
+      case EAccountType.CREDIT_CARD:
+        accountForm = (
+          <CreditCardUpdateForm
             {...accountFormProps}
             accountId={accountFormModal.updateAccountId}
           />
