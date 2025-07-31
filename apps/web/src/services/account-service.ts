@@ -1,6 +1,11 @@
 import {
   CreateAccountRequest,
   CreateAccountResponse,
+  CreateCreditCardRequest,
+  CreateCreditCardResponse,
+  UpdateCreditCardRequest,
+  UpdateCreditCardResponse,
+  GetCreditCardResponse,
   CreateInvestmentAccountRequest,
   CreateInvestmentAccountResponse,
   UpdateInvestmentAccountRequest,
@@ -75,6 +80,31 @@ export function updateCheckingAccount(req: UpdateAccountRequest, config?: Reques
 
 export function getCheckingAccountById(accountId: number, config?: RequestConfig) {
   return http.request<GetAccountResponse>("GET", `/accounts/checking/${accountId}`, {
+    ...config,
+  });
+}
+
+// Credit Card Account
+
+export function createCreditCard(
+  req: Omit<CreateCreditCardRequest, OmittedCreateProps>,
+  config?: RequestConfig,
+) {
+  return http.request<CreateCreditCardResponse>("POST", "/accounts/credit-card", {
+    body: req,
+    ...config,
+  });
+}
+
+export function updateCreditCard(req: UpdateCreditCardRequest, config?: RequestConfig) {
+  return http.request<UpdateCreditCardResponse>("PUT", `/accounts/credit-card/${req.id}`, {
+    body: req.data,
+    ...config,
+  });
+}
+
+export function getCreditCardById(accountId: number, config?: RequestConfig) {
+  return http.request<GetCreditCardResponse>("GET", `/accounts/credit-card/${accountId}`, {
     ...config,
   });
 }

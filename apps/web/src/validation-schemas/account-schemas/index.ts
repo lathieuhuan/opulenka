@@ -5,5 +5,6 @@ export {
   type UpdateAccountSchema as UpdateCashAccountSchema,
 } from "./account-schemas";
 export * from "./checking-account-schemas";
+export * from "./credit-card-schemas";
 export * from "./investment-account-schemas";
 export * from "./savings-account-schemas";
