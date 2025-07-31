@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@neondatabase/serverless": "1.0.0",
+    "decimal.js": "10.6.0",
     "drizzle-orm": "0.41.0"
   }
 }
