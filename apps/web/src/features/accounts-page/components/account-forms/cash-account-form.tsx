@@ -1,6 +1,7 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, UseFormProps } from "react-hook-form";
+import { useTranslations } from "next-intl";
 
 import {
   CreateCashAccountSchema,
@@ -30,6 +31,7 @@ export function CashAccountForm({
   errorMsg,
   onSubmit,
 }: CashAccountFormProps) {
+  const t = useTranslations("AccountForms");
   const form = useForm({
     resolver: zodResolver(createCashAccountSchema),
     defaultValues: {
@@ -49,24 +51,23 @@ export function CashAccountForm({
     <Form id={id} form={form} className="grid grid-cols-2 gap-3" onSubmit={handleSubmit}>
       <FormInput
         name="name"
-        label="Name"
+        label={t("name")}
         fieldClass="col-span-2"
         required
         disabled={disabledFields?.name}
       />
 
-      <FormInput name="description" label="Description" fieldClass="col-span-2" />
+      <FormInput name="description" label={t("description")} fieldClass="col-span-2" />
 
       <FormInputNumber
         name="initialBalance"
-        label="Initial Balance"
+        label={t("initialBalance")}
         required
         disabled={disabledFields?.initialBalance}
       />
-
       <FormSelect
         name="currency"
-        label="Currency"
+        label={t("currency")}
         fieldClass="flex-1"
         required
         disabled={disabledFields?.currency}

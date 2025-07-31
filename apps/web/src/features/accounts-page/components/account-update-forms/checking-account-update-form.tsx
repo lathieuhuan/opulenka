@@ -1,8 +1,8 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { getCheckingAccountById, updateCheckingAccount } from "@/services/account-service";
-import { CheckingAccountForm, CheckingAccountFormValues } from "../account-forms";
 import { useAccountFormCleanUp } from "../../hooks/use-account-form-clean-up";
+import { CheckingAccountForm, CheckingAccountFormValues } from "../account-forms";
 import { AccountFormProps } from "../types";
 
 type CheckingAccountUpdateFormProps = AccountFormProps & {

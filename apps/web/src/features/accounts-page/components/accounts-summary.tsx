@@ -1,9 +1,9 @@
 import { ECurrency } from "@opulenka/service";
 
+import { Card, CardContent, CardHeader, CardTitle } from "@/lib/components/card";
 import { cn } from "@/lib/utils/functions";
 import { AccountFromGetAccounts } from "@/services/account-service";
 import { formatAmount } from "@/utils/formatters";
-import { Card, CardContent, CardHeader, CardTitle } from "@/lib/components/card";
 
 type AccountsSummaryProps = {
   accounts: AccountFromGetAccounts[];

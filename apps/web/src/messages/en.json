@@ -2,11 +2,13 @@
   "Common": {
     "add": "Add",
     "edit": "Edit",
+    "view": "View",
     "cashAccount": "Cash Account",
     "checkingAccount": "Checking Account",
     "savingsAccount": "Savings Account",
     "creditCard": "Credit Card",
-    "investmentAccount": "Investment Account"
+    "investmentAccount": "Investment Account",
+    "transactions": "Transactions"
   },
   "FormField": {
     "REQUIRED_INFO": "This field is required",
@@ -22,6 +24,17 @@
   },
   "AccountServiceErrors": {
     "ACCOUNT_NOT_FOUND": "Account not found"
+  },
+  "AccountForms": {
+    "name": "Name",
+    "description": "Description",
+    "initialBalance": "Initial Balance",
+    "currency": "Currency",
+    "serviceProvider": "Service Provider",
+    "accountNumber": "Account Number",
+    "cardNumber": "Card Number",
+    "interestRate": "Interest Rate",
+    "creditLimit": "Credit Limit"
   },
   "LandingPage": {
     "title": "Welcome to Opulenka",

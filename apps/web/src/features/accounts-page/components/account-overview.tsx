@@ -1,4 +1,5 @@
 import { ChartNoAxesCombined, CreditCard, Landmark, Pencil, PiggyBank, Wallet } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { accountTypeMap } from "@/constants/enum-maps";
 import { AccountFromGetAccounts } from "@/services/account-service";
@@ -33,6 +34,8 @@ const iconColorByAccountType = {
 };
 
 export function AccountOverview({ account, currency, onEdit }: AccountOverviewProps) {
+  const t = useTranslations("Common");
+
   const { accountNumber } = account;
   const transactionsPath = `/transactions?accountId=${account.id}`;
   const isNegative = account.balance < 0;
@@ -50,7 +53,9 @@ export function AccountOverview({ account, currency, onEdit }: AccountOverviewPr
       <CardHeader>
         <div className="flex justify-between items-start">
           <div className="flex items-center space-x-3">
-            <div className={`p-2.5 rounded-full bg-chart-0 ${iconColorByAccountType[account.type]}`}>
+            <div
+              className={`p-2.5 rounded-full bg-chart-0 ${iconColorByAccountType[account.type]}`}
+            >
               {iconByAccountType[account.type]}
             </div>
             <div>
@@ -60,7 +65,9 @@ export function AccountOverview({ account, currency, onEdit }: AccountOverviewPr
           </div>
 
           <div>
-            <p className="mb-1 text-sm text-muted-foreground">{accountTypeMap[account.type]}</p>
+            <p className="mb-1 text-right text-sm text-muted-foreground">
+              {t(accountTypeMap[account.type])}
+            </p>
             <p
               className={`text-lg text-right ${isNegative ? "text-destructive" : "text-foreground"} font-bold`}
             >
@@ -76,12 +83,12 @@ export function AccountOverview({ account, currency, onEdit }: AccountOverviewPr
 
         <div className="flex items-center gap-2">
           <TextLink className="mr-2.5 text-sm font-normal" href={transactionsPath}>
-            View Transactions
+            {t("view")} {t("transactions")}
           </TextLink>
           <span className="w-px h-5 bg-muted-foreground" />
           <Button variant="ghost" size="sm" onClick={onEdit}>
             <Pencil />
-            Edit
+            {t("edit")}
           </Button>
         </div>
       </CardContent>
