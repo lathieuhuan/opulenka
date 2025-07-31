@@ -1,4 +1,4 @@
-import { integer, pgTable, serial } from "drizzle-orm/pg-core";
+import { numeric, pgTable, serial } from "drizzle-orm/pg-core";
 import { AccountTable } from "./account-table";
 
 export const SavingsAccountTable = pgTable("savings_accounts", {
@@ -6,5 +6,5 @@ export const SavingsAccountTable = pgTable("savings_accounts", {
   accountId: serial("account_id")
     .notNull()
     .references(() => AccountTable.id),
-  interestRate: integer("interest_rate").notNull().default(0),
+  interestRate: numeric("interest_rate", { precision: 5, scale: 2 }).notNull().default("0"),
 });

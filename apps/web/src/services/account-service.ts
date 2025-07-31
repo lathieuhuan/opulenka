@@ -5,11 +5,17 @@ import {
   CreateInvestmentAccountResponse,
   UpdateInvestmentAccountRequest,
   UpdateInvestmentAccountResponse,
+  CreateSavingsAccountRequest,
+  CreateSavingsAccountResponse,
+  UpdateSavingsAccountRequest,
+  UpdateSavingsAccountResponse,
+  GetSavingsAccountResponse,
   DataOf,
   GetAccountResponse,
   GetAccountsResponse,
   UpdateAccountRequest,
   UpdateAccountResponse,
+  Decimal,
 } from "@opulenka/service";
 import { http, RequestConfig } from "./base/http";
 
@@ -96,7 +102,38 @@ export function updateInvestmentAccount(
 }
 
 export function getInvestmentAccountById(accountId: number, config?: RequestConfig) {
-  return http.request<GetAccountResponse>("GET", `/accounts/investment/${accountId}`, {
+  return http.request<GetAccountResponse>("GET", `/accounts/investment/${accountId}`, config);
+}
+
+// Savings Account
+
+export function createSavingsAccount(
+  req: Omit<CreateSavingsAccountRequest, OmittedCreateProps>,
+  config?: RequestConfig,
+) {
+  return http.request<CreateSavingsAccountResponse>("POST", "/accounts/savings", {
+    body: req,
     ...config,
   });
+}
+
+export function updateSavingsAccount(req: UpdateSavingsAccountRequest, config?: RequestConfig) {
+  return http.request<UpdateSavingsAccountResponse>("PUT", `/accounts/savings/${req.id}`, {
+    body: req.data,
+    ...config,
+  });
+}
+
+export function getSavingsAccountById(accountId: number, config?: RequestConfig) {
+  return http
+    .request<GetSavingsAccountResponse>("GET", `/accounts/savings/${accountId}`, config)
+    .then((res) => {
+      return {
+        ...res,
+        data: {
+          ...res.data,
+          interestRate: new Decimal(res.data.interestRate).toNumber(),
+        },
+      };
+    });
 }

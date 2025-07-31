@@ -22,7 +22,7 @@ export class SavingsAccountRepository
       .insert(SavingsAccountTable)
       .values({
         accountId: baseAccount.id,
-        interestRate: params.interestRate,
+        interestRate: params.interestRate.toString(),
       })
       .returning();
 
@@ -69,7 +69,9 @@ export class SavingsAccountRepository
 
     const [account] = await this.db
       .update(SavingsAccountTable)
-      .set(params)
+      .set({
+        interestRate: params.interestRate?.toString(),
+      })
       .where(eq(SavingsAccountTable.accountId, id))
       .returning();
 

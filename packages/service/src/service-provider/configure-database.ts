@@ -31,9 +31,7 @@ export async function configureDatabase(sql: NeonQueryFunction<false, false>) {
   await sql`CREATE TABLE IF NOT EXISTS "credit_cards" (
     "id" serial PRIMARY KEY NOT NULL,
     "account_id" serial NOT NULL,
-    "card_number" varchar(20),
-    "limit" integer DEFAULT 0 NOT NULL,
-    CONSTRAINT "credit_cards_card_number_unique" UNIQUE("card_number")
+    "limit" integer DEFAULT 0 NOT NULL
   )`;
 
   // Create investment_accounts table
@@ -46,7 +44,7 @@ export async function configureDatabase(sql: NeonQueryFunction<false, false>) {
   await sql`CREATE TABLE IF NOT EXISTS "savings_accounts" (
     "id" serial PRIMARY KEY NOT NULL,
     "account_id" serial NOT NULL,
-    "interest_rate" integer DEFAULT 0 NOT NULL
+    "interest_rate" numeric(5, 2) DEFAULT '0' NOT NULL
   )`;
 
   // Add foreign key constraints (using DO blocks to make them idempotent)

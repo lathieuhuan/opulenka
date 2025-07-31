@@ -23,12 +23,14 @@ import {
   CashAccountCreateForm,
   CheckingAccountCreateForm,
   InvestmentAccountCreateForm,
+  SavingsAccountCreateForm,
 } from "./account-create-forms";
 import { AccountOverview } from "./account-overview";
 import {
   CashAccountUpdateForm,
   CheckingAccountUpdateForm,
   InvestmentAccountUpdateForm,
+  SavingsAccountUpdateForm,
 } from "./account-update-forms";
 
 const FORM_ID = "account-form";
@@ -124,6 +126,9 @@ export function AccountsOverview({ accounts, currency }: AccountsOverviewProps) 
       case EAccountType.CHECKING:
         accountForm = <CheckingAccountCreateForm {...accountFormProps} />;
         break;
+      case EAccountType.SAVINGS:
+        accountForm = <SavingsAccountCreateForm {...accountFormProps} />;
+        break;
     }
   } else if (accountFormModal.updateAccountId !== null) {
     switch (accountFormModal.type) {
@@ -146,6 +151,14 @@ export function AccountsOverview({ accounts, currency }: AccountsOverviewProps) 
       case EAccountType.CHECKING:
         accountForm = (
           <CheckingAccountUpdateForm
+            {...accountFormProps}
+            accountId={accountFormModal.updateAccountId}
+          />
+        );
+        break;
+      case EAccountType.SAVINGS:
+        accountForm = (
+          <SavingsAccountUpdateForm
             {...accountFormProps}
             accountId={accountFormModal.updateAccountId}
           />
