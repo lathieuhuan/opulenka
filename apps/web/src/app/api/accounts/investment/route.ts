@@ -1,4 +1,4 @@
-import { addUserInfo, validateBody } from "@/procedures/add-ons";
+import { addUserInfo, translateError, validateBody } from "@/procedures/add-ons";
 import { baseProcedure } from "@/procedures/base-procedure";
 import { createInvestmentAccountSchema } from "@/validation-schemas/account-schemas";
 import { EAccountType } from "@opulenka/service";
@@ -6,7 +6,7 @@ import { EAccountType } from "@opulenka/service";
 export const POST = baseProcedure
   .interceptRequest(validateBody(createInvestmentAccountSchema))
   .interceptRequest(addUserInfo())
-  // .interceptResponse(translateError("AuthServiceErrors"))
+  .interceptResponse(translateError("AccountServiceErrors"))
   .createHandler(async (_, ctx) => {
     const response = await ctx.service.account.createInvestmentAccount({
       ...ctx.body,
