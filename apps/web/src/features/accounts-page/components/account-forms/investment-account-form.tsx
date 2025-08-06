@@ -1,8 +1,10 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, UseFormProps } from "react-hook-form";
 import { useTranslations } from "next-intl";
+import { useForm } from "react-hook-form";
 
+import { USE_FORM_DEFAULT_PROPS } from "@/constants/features";
+import { FormDisabledFields, UseFormValues } from "@/types/utils";
 import {
   CreateInvestmentAccountSchema,
   createInvestmentAccountSchema,
@@ -18,8 +20,8 @@ export type InvestmentAccountFormValues = CreateInvestmentAccountSchema;
 
 type InvestmentAccountFormProps = {
   id?: string;
-  values?: UseFormProps<InvestmentAccountFormValues>["values"];
-  disabledFields?: Partial<Record<keyof InvestmentAccountFormValues, boolean>>;
+  values?: UseFormValues<InvestmentAccountFormValues>;
+  disabledFields?: FormDisabledFields<InvestmentAccountFormValues>;
   errorMsg?: string;
   onSubmit?: (data: InvestmentAccountFormValues) => void;
 };
@@ -39,8 +41,7 @@ export function InvestmentAccountForm({
       initialBalance: 0,
     },
     values,
-    mode: "onTouched",
-    reValidateMode: "onChange",
+    ...USE_FORM_DEFAULT_PROPS,
   });
 
   const handleSubmit = async (data: InvestmentAccountFormValues) => {

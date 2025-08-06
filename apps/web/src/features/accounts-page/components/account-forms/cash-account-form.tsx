@@ -1,8 +1,10 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, UseFormProps } from "react-hook-form";
 import { useTranslations } from "next-intl";
+import { useForm } from "react-hook-form";
 
+import { USE_FORM_DEFAULT_PROPS } from "@/constants/features";
+import { FormDisabledFields, UseFormValues } from "@/types/utils";
 import {
   CreateCashAccountSchema,
   createCashAccountSchema,
@@ -18,8 +20,8 @@ export type CashAccountFormValues = CreateCashAccountSchema;
 
 type CashAccountFormProps = {
   id?: string;
-  values?: UseFormProps<CashAccountFormValues>["values"];
-  disabledFields?: Partial<Record<keyof CashAccountFormValues, boolean>>;
+  values?: UseFormValues<CashAccountFormValues>;
+  disabledFields?: FormDisabledFields<CashAccountFormValues>;
   errorMsg?: string;
   onSubmit?: (data: CashAccountFormValues) => void;
 };
@@ -39,8 +41,7 @@ export function CashAccountForm({
       initialBalance: 0,
     },
     values,
-    mode: "onTouched",
-    reValidateMode: "onChange",
+    ...USE_FORM_DEFAULT_PROPS,
   });
 
   const handleSubmit = async (data: CashAccountFormValues) => {

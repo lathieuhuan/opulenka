@@ -1,8 +1,10 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, UseFormProps } from "react-hook-form";
 import { useTranslations } from "next-intl";
+import { useForm } from "react-hook-form";
 
+import { USE_FORM_DEFAULT_PROPS } from "@/constants/features";
+import { FormDisabledFields, UseFormValues } from "@/types/utils";
 import {
   CreateSavingsAccountSchema,
   createSavingsAccountSchema,
@@ -18,8 +20,8 @@ export type SavingsAccountFormValues = CreateSavingsAccountSchema;
 
 type SavingsAccountFormProps = {
   id?: string;
-  values?: UseFormProps<SavingsAccountFormValues>["values"];
-  disabledFields?: Partial<Record<keyof SavingsAccountFormValues, boolean>>;
+  values?: UseFormValues<SavingsAccountFormValues>;
+  disabledFields?: FormDisabledFields<SavingsAccountFormValues>;
   errorMsg?: string;
   onSubmit?: (data: SavingsAccountFormValues) => void;
 };
@@ -40,8 +42,7 @@ export function SavingsAccountForm({
       interestRate: 0,
     },
     values,
-    mode: "onTouched",
-    reValidateMode: "onChange",
+    ...USE_FORM_DEFAULT_PROPS,
   });
 
   const handleSubmit = async (data: SavingsAccountFormValues) => {
@@ -100,4 +101,4 @@ export function SavingsAccountForm({
       {errorMsg && <Message preset="error" className="col-span-2" message={errorMsg} />}
     </Form>
   );
-} 
+}

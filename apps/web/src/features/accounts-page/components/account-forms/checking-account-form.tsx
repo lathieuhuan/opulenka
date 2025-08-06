@@ -1,8 +1,10 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, UseFormProps } from "react-hook-form";
 import { useTranslations } from "next-intl";
+import { useForm } from "react-hook-form";
 
+import { USE_FORM_DEFAULT_PROPS } from "@/constants/features";
+import { FormDisabledFields, UseFormValues } from "@/types/utils";
 import {
   CreateCheckingAccountSchema,
   createCheckingAccountSchema,
@@ -18,8 +20,8 @@ export type CheckingAccountFormValues = CreateCheckingAccountSchema;
 
 type CheckingAccountFormProps = {
   id?: string;
-  values?: UseFormProps<CheckingAccountFormValues>["values"];
-  disabledFields?: Partial<Record<keyof CheckingAccountFormValues, boolean>>;
+  values?: UseFormValues<CheckingAccountFormValues>;
+  disabledFields?: FormDisabledFields<CheckingAccountFormValues>;
   errorMsg?: string;
   onSubmit?: (data: CheckingAccountFormValues) => void;
 };
@@ -39,8 +41,7 @@ export function CheckingAccountForm({
       initialBalance: 0,
     },
     values,
-    mode: "onTouched",
-    reValidateMode: "onChange",
+    ...USE_FORM_DEFAULT_PROPS,
   });
 
   const handleSubmit = async (data: CheckingAccountFormValues) => {
@@ -89,4 +90,4 @@ export function CheckingAccountForm({
       {errorMsg ? <Message preset="error" className="col-span-2" message={errorMsg} /> : null}
     </Form>
   );
-} 
+}

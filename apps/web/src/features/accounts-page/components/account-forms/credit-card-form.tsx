@@ -1,8 +1,10 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, UseFormProps } from "react-hook-form";
 import { useTranslations } from "next-intl";
+import { useForm } from "react-hook-form";
 
+import { USE_FORM_DEFAULT_PROPS } from "@/constants/features";
+import { FormDisabledFields, UseFormValues } from "@/types/utils";
 import {
   CreateCreditCardSchema,
   createCreditCardSchema,
@@ -18,8 +20,8 @@ export type CreditCardFormValues = CreateCreditCardSchema;
 
 type CreditCardFormProps = {
   id?: string;
-  values?: UseFormProps<CreditCardFormValues>["values"];
-  disabledFields?: Partial<Record<keyof CreditCardFormValues, boolean>>;
+  values?: UseFormValues<CreditCardFormValues>;
+  disabledFields?: FormDisabledFields<CreditCardFormValues>;
   errorMsg?: string;
   onSubmit?: (data: CreditCardFormValues) => void;
 };
@@ -40,8 +42,7 @@ export function CreditCardForm({
       limit: 0,
     },
     values,
-    mode: "onTouched",
-    reValidateMode: "onChange",
+    ...USE_FORM_DEFAULT_PROPS,
   });
 
   const handleSubmit = async (data: CreditCardFormValues) => {
