@@ -29,11 +29,8 @@ export class SavingsAccountRepository
     return this.toSavingsAccount(baseAccount, omitNull(account));
   }
 
-  override async getAccountByUserIdAndId(
-    userId: number,
-    id: number,
-  ): Promise<SavingsAccountEntity | null> {
-    const baseAccount = await super.getAccountByUserIdAndId(userId, id);
+  override async getAccountById(id: number): Promise<SavingsAccountEntity | null> {
+    const baseAccount = await super.getAccountById(id);
     if (!baseAccount) return null;
 
     const [account] = await this.db

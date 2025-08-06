@@ -1,4 +1,4 @@
-import { and, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
 import { AccountTable } from "@/db";
 import { AccountEntity } from "@/interfaces/entities";
@@ -29,11 +29,8 @@ export class AccountRepository extends BaseRepository implements IAccountReposit
     return omitNull(account);
   }
 
-  async getAccountByUserIdAndId(userId: number, id: number): Promise<AccountEntity | null> {
-    const [account] = await this.db
-      .select()
-      .from(AccountTable)
-      .where(and(eq(AccountTable.id, id), eq(AccountTable.userId, userId)));
+  async getAccountById(id: number): Promise<AccountEntity | null> {
+    const [account] = await this.db.select().from(AccountTable).where(eq(AccountTable.id, id));
     return omitNull(account) || null;
   }
 

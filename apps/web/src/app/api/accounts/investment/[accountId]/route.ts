@@ -10,9 +10,9 @@ export const GET = baseProcedure
   .interceptResponse(translateError("AccountServiceErrors"))
   .createHandler(async (_, ctx) => {
     const response = await ctx.service.account.getInvestmentAccountById({
-      userId: ctx.user.userId,
       id: ctx.segments.accountId,
     });
+    // TODO: validate if the account belongs to the user
     return response;
   });
 
@@ -22,6 +22,7 @@ export const PUT = baseProcedure
   .interceptRequest(addUserInfo())
   .interceptResponse(translateError("AccountServiceErrors"))
   .createHandler(async (_, ctx) => {
+    // TODO: validate if the account belongs to the user
     const response = await ctx.service.account.updateInvestmentAccount({
       id: ctx.segments.accountId,
       data: ctx.body,

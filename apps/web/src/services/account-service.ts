@@ -16,7 +16,7 @@ import {
   UpdateSavingsAccountResponse,
   GetSavingsAccountResponse,
   DataOf,
-  GetAccountResponse,
+  GetAccountByIdResponse,
   GetAccountsResponse,
   UpdateAccountRequest,
   UpdateAccountResponse,
@@ -54,7 +54,7 @@ export function updateCashAccount(req: UpdateAccountRequest, config?: RequestCon
 }
 
 export function getCashAccountById(accountId: number, config?: RequestConfig) {
-  return http.request<GetAccountResponse>("GET", `/accounts/cash/${accountId}`, {
+  return http.request<GetAccountByIdResponse>("GET", `/accounts/cash/${accountId}`, {
     ...config,
   });
 }
@@ -79,7 +79,7 @@ export function updateCheckingAccount(req: UpdateAccountRequest, config?: Reques
 }
 
 export function getCheckingAccountById(accountId: number, config?: RequestConfig) {
-  return http.request<GetAccountResponse>("GET", `/accounts/checking/${accountId}`, {
+  return http.request<GetAccountByIdResponse>("GET", `/accounts/checking/${accountId}`, {
     ...config,
   });
 }
@@ -132,7 +132,7 @@ export function updateInvestmentAccount(
 }
 
 export function getInvestmentAccountById(accountId: number, config?: RequestConfig) {
-  return http.request<GetAccountResponse>("GET", `/accounts/investment/${accountId}`, config);
+  return http.request<GetAccountByIdResponse>("GET", `/accounts/investment/${accountId}`, config);
 }
 
 // Savings Account
