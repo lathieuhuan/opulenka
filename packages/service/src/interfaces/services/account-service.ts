@@ -21,11 +21,10 @@ import { ServiceResponse } from "./base-response";
 export type CreateAccountRequest = CreateAccountParams;
 export type CreateAccountResponse = ServiceResponse<AccountEntity>;
 
-export type GetAccountRequest = {
-  userId: number;
+export type GetAccountByIdRequest = {
   id: number;
 };
-export type GetAccountResponse = ServiceResponse<AccountEntity>;
+export type GetAccountByIdResponse = ServiceResponse<AccountEntity>;
 
 export type GetAccountsRequest = {
   userId: number;

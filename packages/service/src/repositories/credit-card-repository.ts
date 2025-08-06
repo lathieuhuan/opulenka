@@ -26,8 +26,8 @@ export class CreditCardRepository extends AccountRepository implements ICreditCa
     return this.toCreditCard(baseAccount, omitNull(account));
   }
 
-  override async getAccountByUserIdAndId(userId: number, id: number): Promise<CreditCardEntity | null> {
-    const baseAccount = await super.getAccountByUserIdAndId(userId, id);
+  override async getAccountById(id: number): Promise<CreditCardEntity | null> {
+    const baseAccount = await super.getAccountById(id);
     if (!baseAccount) return null;
 
     const [account] = await this.db

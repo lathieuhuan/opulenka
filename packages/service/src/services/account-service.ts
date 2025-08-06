@@ -16,8 +16,8 @@ import {
   DeleteAccountRequest,
   DeleteAccountResponse,
   ErrorResponse,
-  GetAccountRequest,
-  GetAccountResponse,
+  GetAccountByIdRequest,
+  GetAccountByIdResponse,
   GetAccountsRequest,
   GetAccountsResponse,
   GetCreditCardResponse,
@@ -56,8 +56,8 @@ export class AccountService {
   }
 
   @CatchErrors
-  async getAccountById(request: GetAccountRequest): Promise<GetAccountResponse> {
-    const account = await this.accountRepo.getAccountByUserIdAndId(request.userId, request.id);
+  async getAccountById(request: GetAccountByIdRequest): Promise<GetAccountByIdResponse> {
+    const account = await this.accountRepo.getAccountById(request.id);
 
     if (!account) {
       throw new ErrorResponse(404, ACCOUNT_ERRORS.ACCOUNT_NOT_FOUND);
@@ -104,8 +104,8 @@ export class AccountService {
   }
 
   @CatchErrors
-  async getCreditCardById(request: GetAccountRequest): Promise<GetCreditCardResponse> {
-    const account = await this.creditCardRepo.getAccountByUserIdAndId(request.userId, request.id);
+  async getCreditCardById(request: GetAccountByIdRequest): Promise<GetCreditCardResponse> {
+    const account = await this.creditCardRepo.getAccountById(request.id);
 
     if (!account) {
       throw new ErrorResponse(404, ACCOUNT_ERRORS.ACCOUNT_NOT_FOUND);
@@ -155,12 +155,9 @@ export class AccountService {
 
   @CatchErrors
   async getInvestmentAccountById(
-    request: GetAccountRequest,
+    request: GetAccountByIdRequest,
   ): Promise<GetInvestmentAccountResponse> {
-    const account = await this.investmentAccountRepo.getAccountByUserIdAndId(
-      request.userId,
-      request.id,
-    );
+    const account = await this.investmentAccountRepo.getAccountById(request.id);
 
     if (!account) {
       throw new ErrorResponse(404, ACCOUNT_ERRORS.ACCOUNT_NOT_FOUND);
@@ -211,11 +208,8 @@ export class AccountService {
   }
 
   @CatchErrors
-  async getSavingsAccountById(request: GetAccountRequest): Promise<GetSavingsAccountResponse> {
-    const account = await this.savingsAccountRepo.getAccountByUserIdAndId(
-      request.userId,
-      request.id,
-    );
+  async getSavingsAccountById(request: GetAccountByIdRequest): Promise<GetSavingsAccountResponse> {
+    const account = await this.savingsAccountRepo.getAccountById(request.id);
 
     if (!account) {
       throw new ErrorResponse(404, ACCOUNT_ERRORS.ACCOUNT_NOT_FOUND);

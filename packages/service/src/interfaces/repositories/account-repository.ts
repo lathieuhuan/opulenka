@@ -29,7 +29,7 @@ export interface IAccountRepository<
   //
   createAccount(params: TCreateParams): Promise<TAccount>;
 
-  getAccountByUserIdAndId(userId: number, id: number): Promise<TAccount | null>;
+  getAccountById(id: number): Promise<TAccount | null>;
 
   getAccountsByUserId(userId: number): Promise<TAccount[]>;
 

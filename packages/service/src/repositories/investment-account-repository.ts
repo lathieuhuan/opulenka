@@ -29,11 +29,8 @@ export class InvestmentAccountRepository
     return this.toInvestmentAccount(baseAccount);
   }
 
-  override async getAccountByUserIdAndId(
-    userId: number,
-    id: number,
-  ): Promise<InvestmentAccountEntity | null> {
-    const baseAccount = await super.getAccountByUserIdAndId(userId, id);
+  override async getAccountById(id: number): Promise<InvestmentAccountEntity | null> {
+    const baseAccount = await super.getAccountById(id);
     if (!baseAccount) return null;
 
     // const [account] = await this.db
