@@ -4,10 +4,10 @@ import { z } from "zod";
 
 import { RequestInterceptor } from "../procedure";
 
-export function validateQuery<TQueryShape, TPreContext = void>(
-  schema: z.ZodSchema<TQueryShape>,
+export function validateQuery<TSchema extends z.ZodType, TPreContext = void>(
+  schema: TSchema,
   defaultQuery?: Record<string, any>,
-): RequestInterceptor<{ query: TQueryShape } & TPreContext, TPreContext> {
+): RequestInterceptor<{ query: z.infer<TSchema> } & TPreContext, TPreContext> {
   return async (request: NextRequest, ctx: TPreContext) => {
     const searchParams = request.nextUrl.searchParams;
     const query: Record<string, any> = {

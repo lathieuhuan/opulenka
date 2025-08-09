@@ -4,21 +4,36 @@ import * as SelectPrimitive from "@radix-ui/react-select";
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils/functions";
+import { ComponentProps } from "react";
 
-function SelectContainer({ ...props }: React.ComponentProps<typeof SelectPrimitive.Root>) {
-  return <SelectPrimitive.Root data-slot="select" {...props} />;
+type SelectContainerProps = Omit<
+  ComponentProps<typeof SelectPrimitive.Root>,
+  "value" | "onValueChange"
+> & {
+  value?: string | number;
+  onValueChange?: (value: string | number) => void;
+};
+function SelectContainer({ value, onValueChange, ...props }: SelectContainerProps) {
+  return (
+    <SelectPrimitive.Root
+      data-slot="select"
+      value={value as any}
+      onValueChange={onValueChange}
+      {...props}
+    />
+  );
 }
 
-function SelectGroup({ ...props }: React.ComponentProps<typeof SelectPrimitive.Group>) {
+function SelectGroup({ ...props }: ComponentProps<typeof SelectPrimitive.Group>) {
   return <SelectPrimitive.Group data-slot="select-group" {...props} />;
 }
 
-function SelectValue({ ...props }: React.ComponentProps<typeof SelectPrimitive.Value>) {
+function SelectValue({ ...props }: ComponentProps<typeof SelectPrimitive.Value>) {
   return <SelectPrimitive.Value data-slot="select-value" {...props} />;
 }
 
 // modified
-type SelectTriggerProps = React.ComponentProps<typeof SelectPrimitive.Trigger> & {
+type SelectTriggerProps = ComponentProps<typeof SelectPrimitive.Trigger> & {
   size?: "sm" | "default";
   arrowCls?: string;
 };
@@ -52,7 +67,7 @@ function SelectContent({
   children,
   position = "popper",
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.Content>) {
+}: ComponentProps<typeof SelectPrimitive.Content>) {
   return (
     <SelectPrimitive.Portal>
       <SelectPrimitive.Content
@@ -82,7 +97,7 @@ function SelectContent({
   );
 }
 
-function SelectLabel({ className, ...props }: React.ComponentProps<typeof SelectPrimitive.Label>) {
+function SelectLabel({ className, ...props }: ComponentProps<typeof SelectPrimitive.Label>) {
   return (
     <SelectPrimitive.Label
       data-slot="select-label"
@@ -92,11 +107,10 @@ function SelectLabel({ className, ...props }: React.ComponentProps<typeof Select
   );
 }
 
-function SelectItem({
-  className,
-  children,
-  ...props
-}: React.ComponentProps<typeof SelectPrimitive.Item>) {
+type SelectItemProps = Omit<ComponentProps<typeof SelectPrimitive.Item>, "value"> & {
+  value: string | number;
+};
+function SelectItem({ className, children, value, ...props }: SelectItemProps) {
   return (
     <SelectPrimitive.Item
       data-slot="select-item"
@@ -104,6 +118,7 @@ function SelectItem({
         "focus:bg-accent focus:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
         className,
       )}
+      value={value as any}
       {...props}
     >
       <span className="absolute right-2 flex size-3.5 items-center justify-center">
@@ -119,7 +134,7 @@ function SelectItem({
 function SelectSeparator({
   className,
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.Separator>) {
+}: ComponentProps<typeof SelectPrimitive.Separator>) {
   return (
     <SelectPrimitive.Separator
       data-slot="select-separator"
@@ -132,7 +147,7 @@ function SelectSeparator({
 function SelectScrollUpButton({
   className,
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.ScrollUpButton>) {
+}: ComponentProps<typeof SelectPrimitive.ScrollUpButton>) {
   return (
     <SelectPrimitive.ScrollUpButton
       data-slot="select-scroll-up-button"
@@ -147,7 +162,7 @@ function SelectScrollUpButton({
 function SelectScrollDownButton({
   className,
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.ScrollDownButton>) {
+}: ComponentProps<typeof SelectPrimitive.ScrollDownButton>) {
   return (
     <SelectPrimitive.ScrollDownButton
       data-slot="select-scroll-down-button"

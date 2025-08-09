@@ -8,7 +8,12 @@
     "savingsAccount": "Savings Account",
     "creditCard": "Credit Card",
     "investmentAccount": "Investment Account",
-    "transactions": "Transactions"
+    "income": "Income",
+    "expense": "Expense",
+    "transfer": "Transfer",
+    "account_singular": "Account",
+    "transaction_singular": "Transaction",
+    "transaction_plural": "Transactions"
   },
   "FormField": {
     "REQUIRED_INFO": "This field is required",
@@ -18,12 +23,22 @@
     "__Enter": "Enter",
     "__Select": "Select"
   },
+  "ActionMessages": {
+    "createSuccess": "{entity} created successfully",
+    "updateSuccess": "{entity} updated successfully",
+    "createError": "Failed to create {entity}. Please try again later.",
+    "updateError": "Failed to edit {entity}. Please try again later."
+  },
   "AuthServiceErrors": {
     "INVALID_LOGIN_INFO": "Invalid login information",
     "USED_EMAIL": "Email already in use"
   },
   "AccountServiceErrors": {
     "ACCOUNT_NOT_FOUND": "Account not found"
+  },
+  "TransactionServiceErrors": {
+    "TRANSACTION_NOT_FOUND": "Transaction not found",
+    "INSUFFICIENT_BALANCE": "Insufficient balance"
   },
   "AccountForms": {
     "name": "Name",
@@ -35,6 +50,14 @@
     "cardNumber": "Card Number",
     "interestRate": "Interest Rate",
     "creditLimit": "Credit Limit"
+  },
+  "TransactionForms": {
+    "accountId": "Account ID",
+    "type": "Type",
+    "amount": "Amount",
+    "receiveAccountId": "Receive Account ID",
+    "description": "Description",
+    "fee": "Fee"
   },
   "LandingPage": {
     "title": "Welcome to Opulenka",

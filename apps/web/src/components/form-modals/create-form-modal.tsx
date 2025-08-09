@@ -1,36 +1,50 @@
 import { MutationFunction, useMutation } from "@tanstack/react-query";
-import { ComponentType, useId } from "react";
+import { ComponentProps, ComponentType, useId } from "react";
 
 import { Modal } from "@/lib/components/modal";
 import { ErrorResponse } from "@opulenka/service";
 
 type FormProps<TValues = unknown> = {
   id?: string;
+  values?: TValues;
   errorMsg?: string;
   onSubmit?: (data: TValues) => void;
 };
 
-type CreateFormModalProps<TValues = unknown> = {
+type ValuesOfForm<TForm extends ComponentType> =
+  TForm extends ComponentType<infer TProps>
+    ? TProps extends FormProps<infer TValues>
+      ? TValues
+      : never
+    : never;
+
+export type CreateFormModalProps<TFormProps, TValues> = {
   title: string;
   open: boolean;
   defaultErrorMsg?: string;
-  Form: ComponentType<FormProps<TValues>>;
+  formProps?: Omit<TFormProps, keyof FormProps>;
+  Form: ComponentType<TFormProps>;
   createFn: MutationFunction<unknown, TValues>;
   onSuccess?: () => void;
   onError?: (error: ErrorResponse) => void;
   onClose: () => void;
 };
 
-export function CreateFormModal<TValues = unknown>({
+export function CreateFormModal<
+  TForm extends ComponentType,
+  TFormProps extends ComponentProps<TForm>,
+  TValues = ValuesOfForm<TForm>,
+>({
   title,
   open,
   defaultErrorMsg,
+  formProps,
   Form,
   createFn,
   onSuccess,
   onError,
   onClose,
-}: CreateFormModalProps<TValues>) {
+}: CreateFormModalProps<TFormProps, TValues>) {
   const formId = useId();
   const {
     mutate: tryCreate,
@@ -42,6 +56,12 @@ export function CreateFormModal<TValues = unknown>({
     onSuccess,
     onError,
   });
+
+  const props: FormProps<TValues> = {
+    id: formId,
+    errorMsg: isError ? defaultErrorMsg : undefined,
+    onSubmit: tryCreate,
+  };
 
   return (
     <Modal
@@ -56,7 +76,7 @@ export function CreateFormModal<TValues = unknown>({
       afterClose={reset}
       onClose={onClose}
     >
-      <Form id={formId} errorMsg={isError ? defaultErrorMsg : undefined} onSubmit={tryCreate} />
+      <Form {...(props as TFormProps)} {...formProps} />
     </Modal>
   );
 }

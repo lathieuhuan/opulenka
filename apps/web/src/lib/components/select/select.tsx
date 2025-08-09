@@ -14,19 +14,22 @@ import {
 
 // modified
 
-export type SelectOption = {
+export type SelectOption<TValue = string | number> = {
   label: string;
-  value: string;
+  value: TValue;
 };
 
-export type SelectProps = Omit<SelectTriggerProps, "value" | "children" | "arrowCls"> & {
-  options?: SelectOption[];
+export type SelectProps<TValue = string | number> = Omit<
+  SelectTriggerProps,
+  "value" | "children" | "arrowCls"
+> & {
+  options?: SelectOption<TValue>[];
   placeholder?: string;
-  value?: string;
+  value?: TValue;
   defaultValue?: string;
   block?: boolean;
   allowClear?: boolean;
-  onValueChange?: (value: string) => void;
+  onValueChange?: (value: TValue) => void;
 };
 
 export function Select({
