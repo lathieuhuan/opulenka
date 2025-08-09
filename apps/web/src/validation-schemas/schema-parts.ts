@@ -2,9 +2,11 @@ import { z } from "zod";
 import { StringUtils } from "@/lib/utils/string-utils";
 import { ZOD_ERROR_MESSAGES } from "@/config/zod";
 
-function isEmptyString(value: string | undefined) {
+function isEmptyString(value: any): value is "" | undefined {
   return value === undefined || value === "";
 }
+
+// if value is invalid per refine, it will not go to transform
 
 export const requiredString = z
   .string()
@@ -20,11 +22,12 @@ export const optionalString = z
   )
   .transform((value) => (isEmptyString(value) ? undefined : value));
 
-// if value is invalid per refine, it will not go to transform
-
 export const optionalNumber = z
   .any()
-  .refine((value) => value === "" || typeof value === "number", ZOD_ERROR_MESSAGES.INVALID_VALUE)
+  .refine(
+    (value) => isEmptyString(value) || typeof value === "number",
+    ZOD_ERROR_MESSAGES.INVALID_VALUE,
+  )
   .transform((value) => (isEmptyString(value) ? undefined : Number(value)));
 
 export const requiredNumber = z

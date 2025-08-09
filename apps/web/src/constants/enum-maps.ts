@@ -1,4 +1,4 @@
-import { EAccountType, ECurrency } from "@opulenka/service";
+import { EAccountType, ECurrency, ETransactionType } from "@opulenka/service";
 
 export const accountTypeMap: Record<EAccountType, string> = {
   [EAccountType.CASH]: "cashAccount",
@@ -11,4 +11,10 @@ export const accountTypeMap: Record<EAccountType, string> = {
 export const currencyMap: Record<ECurrency, string> = {
   [ECurrency.USD]: "USD",
   [ECurrency.VND]: "VND",
+};
+
+export const transactionTypeMap: Record<ETransactionType, string> = {
+  [ETransactionType.INCOME]: "income",
+  [ETransactionType.EXPENSE]: "expense",
+  [ETransactionType.TRANSFER]: "transfer",
 };
