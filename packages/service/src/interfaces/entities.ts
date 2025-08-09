@@ -4,6 +4,7 @@ import {
   InvestmentAccountTable,
   CreditCardTable,
   SavingsAccountTable,
+  TransactionTable,
 } from "@/db";
 import { OmitNull } from "@/types";
 
@@ -18,3 +19,5 @@ export type CreditCardEntity = ExtendAccount<typeof CreditCardTable.$inferSelect
 export type SavingsAccountEntity = ExtendAccount<typeof SavingsAccountTable.$inferSelect>;
 
 export type InvestmentAccountEntity = ExtendAccount<typeof InvestmentAccountTable.$inferSelect>;
+
+export type TransactionEntity = OmitNull<typeof TransactionTable.$inferSelect>;

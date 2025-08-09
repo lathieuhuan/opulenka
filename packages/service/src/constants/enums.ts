@@ -1,3 +1,8 @@
+export enum ESortOrder {
+  ASC = "asc",
+  DESC = "desc",
+}
+
 export enum EAccountType {
   CASH = "CASH",
   CHECKING = "CHECKING",

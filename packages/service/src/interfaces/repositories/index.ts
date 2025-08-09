@@ -3,3 +3,4 @@ export * from "./account-repository";
 export * from "./credit-card-repository";
 export * from "./investment-account-repository";
 export * from "./savings-account-repository";
+export * from "./transaction-repository";
