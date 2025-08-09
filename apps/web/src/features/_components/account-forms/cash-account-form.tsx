@@ -4,38 +4,38 @@ import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 
 import { USE_FORM_DEFAULT_PROPS } from "@/constants/features";
+import { CURRENCY_OPTIONS } from "@/features/_constants/options";
 import { FormDisabledFields, UseFormValues } from "@/types/utils";
 import {
-  CreateCheckingAccountSchema,
-  createCheckingAccountSchema,
+  CreateCashAccountSchema,
+  createCashAccountSchema,
 } from "@/validation-schemas/account-schemas";
 import { ECurrency } from "@opulenka/service";
-import { CURRENCY_OPTIONS } from "../../constants/options";
 
 // Components
 import { Form, FormInput, FormInputNumber, FormSelect } from "@/components/form";
 import { Message } from "@/lib/components/message";
 
-export type CheckingAccountFormValues = CreateCheckingAccountSchema;
+export type CashAccountFormValues = CreateCashAccountSchema;
 
-type CheckingAccountFormProps = {
+type CashAccountFormProps = {
   id?: string;
-  values?: UseFormValues<CheckingAccountFormValues>;
-  disabledFields?: FormDisabledFields<CheckingAccountFormValues>;
+  values?: UseFormValues<CashAccountFormValues>;
+  disabledFields?: FormDisabledFields<CashAccountFormValues>;
   errorMsg?: string;
-  onSubmit?: (data: CheckingAccountFormValues) => void;
+  onSubmit?: (data: CashAccountFormValues) => void;
 };
 
-export function CheckingAccountForm({
+export function CashAccountForm({
   id,
   values,
   disabledFields,
   errorMsg,
   onSubmit,
-}: CheckingAccountFormProps) {
+}: CashAccountFormProps) {
   const t = useTranslations("AccountForms");
   const form = useForm({
-    resolver: zodResolver(createCheckingAccountSchema),
+    resolver: zodResolver(createCashAccountSchema),
     defaultValues: {
       currency: ECurrency.VND,
       initialBalance: 0,
@@ -44,7 +44,7 @@ export function CheckingAccountForm({
     ...USE_FORM_DEFAULT_PROPS,
   });
 
-  const handleSubmit = async (data: CheckingAccountFormValues) => {
+  const handleSubmit = async (data: CashAccountFormValues) => {
     onSubmit?.(data);
   };
 
@@ -56,18 +56,6 @@ export function CheckingAccountForm({
         fieldClass="col-span-2"
         required
         disabled={disabledFields?.name}
-      />
-
-      <FormInput
-        name="serviceProvider"
-        label={t("serviceProvider")}
-        required
-        disabled={disabledFields?.serviceProvider}
-      />
-      <FormInput
-        name="accountNumber"
-        label={t("accountNumber")}
-        disabled={disabledFields?.accountNumber}
       />
 
       <FormInput name="description" label={t("description")} fieldClass="col-span-2" />

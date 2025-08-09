@@ -4,48 +4,48 @@ import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 
 import { USE_FORM_DEFAULT_PROPS } from "@/constants/features";
+import { CURRENCY_OPTIONS } from "@/features/_constants/options";
 import { FormDisabledFields, UseFormValues } from "@/types/utils";
 import {
-  CreateSavingsAccountSchema,
-  createSavingsAccountSchema,
+  CreateCreditCardSchema,
+  createCreditCardSchema,
 } from "@/validation-schemas/account-schemas";
 import { ECurrency } from "@opulenka/service";
-import { CURRENCY_OPTIONS } from "../../constants/options";
 
 // Components
 import { Form, FormInput, FormInputNumber, FormSelect } from "@/components/form";
 import { Message } from "@/lib/components/message";
 
-export type SavingsAccountFormValues = CreateSavingsAccountSchema;
+export type CreditCardFormValues = CreateCreditCardSchema;
 
-type SavingsAccountFormProps = {
+type CreditCardFormProps = {
   id?: string;
-  values?: UseFormValues<SavingsAccountFormValues>;
-  disabledFields?: FormDisabledFields<SavingsAccountFormValues>;
+  values?: UseFormValues<CreditCardFormValues>;
+  disabledFields?: FormDisabledFields<CreditCardFormValues>;
   errorMsg?: string;
-  onSubmit?: (data: SavingsAccountFormValues) => void;
+  onSubmit?: (data: CreditCardFormValues) => void;
 };
 
-export function SavingsAccountForm({
+export function CreditCardForm({
   id,
   values,
   disabledFields,
   errorMsg,
   onSubmit,
-}: SavingsAccountFormProps) {
+}: CreditCardFormProps) {
   const t = useTranslations("AccountForms");
   const form = useForm({
-    resolver: zodResolver(createSavingsAccountSchema),
+    resolver: zodResolver(createCreditCardSchema),
     defaultValues: {
       currency: ECurrency.VND,
       initialBalance: 0,
-      interestRate: 0,
+      limit: 0,
     },
     values,
     ...USE_FORM_DEFAULT_PROPS,
   });
 
-  const handleSubmit = async (data: SavingsAccountFormValues) => {
+  const handleSubmit = async (data: CreditCardFormValues) => {
     onSubmit?.(data);
   };
 
@@ -67,7 +67,7 @@ export function SavingsAccountForm({
       />
       <FormInput
         name="accountNumber"
-        label={t("accountNumber")}
+        label={t("cardNumber")}
         disabled={disabledFields?.accountNumber}
       />
 
@@ -82,23 +82,21 @@ export function SavingsAccountForm({
       <FormSelect
         name="currency"
         label={t("currency")}
-        options={CURRENCY_OPTIONS}
+        fieldClass="flex-1"
         required
         disabled={disabledFields?.currency}
+        options={CURRENCY_OPTIONS}
       />
 
       <FormInputNumber
-        name="interestRate"
-        label={t("interestRate")}
+        name="limit"
+        label={t("creditLimit")}
+        fieldClass="col-span-2"
         required
-        suffix="%"
-        decimalScale={2}
-        min={0}
-        max={100}
-        disabled={disabledFields?.interestRate}
+        disabled={disabledFields?.limit}
       />
 
-      {errorMsg && <Message preset="error" className="col-span-2" message={errorMsg} />}
+      {errorMsg ? <Message preset="error" className="col-span-2" message={errorMsg} /> : null}
     </Form>
   );
-}
+} 

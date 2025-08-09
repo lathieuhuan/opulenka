@@ -4,13 +4,13 @@ import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 
 import { USE_FORM_DEFAULT_PROPS } from "@/constants/features";
+import { CURRENCY_OPTIONS } from "@/features/_constants/options";
 import { FormDisabledFields, UseFormValues } from "@/types/utils";
 import {
   CreateInvestmentAccountSchema,
   createInvestmentAccountSchema,
 } from "@/validation-schemas/account-schemas";
 import { ECurrency } from "@opulenka/service";
-import { CURRENCY_OPTIONS } from "../../constants/options";
 
 // Components
 import { Form, FormInput, FormInputNumber, FormSelect } from "@/components/form";
