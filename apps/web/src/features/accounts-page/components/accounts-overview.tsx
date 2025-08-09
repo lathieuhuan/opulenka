@@ -27,9 +27,9 @@ const ACCOUNT_TYPE_OPTIONS = [
   EAccountType.INVESTMENT,
 ];
 
-type AccountFormModalState = {
+type AccountModalState = {
   open: boolean;
-  updateAccountId: number | null;
+  updateId?: number;
   type: EAccountType;
 };
 
@@ -39,12 +39,11 @@ type AccountsOverviewProps = {
 };
 
 export function AccountsOverview({ accounts, currency }: AccountsOverviewProps) {
-  const t = useTranslations("AccountsOverview");
   const tC = useTranslations("Common");
+  const t = useTranslations("AccountsOverview");
   const queryClient = useQueryClient();
-  const [formModal, setFormModal] = useState<AccountFormModalState>({
+  const [accountModal, setAccountModal] = useState<AccountModalState>({
     open: false,
-    updateAccountId: null,
     type: EAccountType.CASH,
   });
 
@@ -52,17 +51,17 @@ export function AccountsOverview({ accounts, currency }: AccountsOverviewProps) 
     queryClient.invalidateQueries({ queryKey: ["accounts"] });
   };
 
-  const updateAccountFormModal = (newState: Partial<typeof formModal>) => {
-    setFormModal((prev) => ({
+  const updateAccountFormModal = (newState: Partial<typeof accountModal>) => {
+    setAccountModal((prev) => ({
       ...prev,
       ...newState,
     }));
   };
 
-  const openAccountFormModal = (type: EAccountType, updateAccountId: number | null = null) => {
+  const openAccountModal = (type: EAccountType, updateId?: number) => {
     updateAccountFormModal({
       open: true,
-      updateAccountId,
+      updateId,
       type,
     });
   };
@@ -92,7 +91,7 @@ export function AccountsOverview({ accounts, currency }: AccountsOverviewProps) 
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 {ACCOUNT_TYPE_OPTIONS.map((option) => (
-                  <DropdownMenuItem key={option} onClick={() => openAccountFormModal(option)}>
+                  <DropdownMenuItem key={option} onClick={() => openAccountModal(option)}>
                     {tC(accountTypeMap[option])}
                   </DropdownMenuItem>
                 ))}
@@ -113,8 +112,7 @@ export function AccountsOverview({ accounts, currency }: AccountsOverviewProps) 
                 key={account.id}
                 account={account}
                 currency={currency}
-                onViewTransactions={() => {}}
-                onEdit={() => openAccountFormModal(account.type, account.id)}
+                onEdit={() => openAccountModal(account.type, account.id)}
               />
             ))
           )}
@@ -122,7 +120,7 @@ export function AccountsOverview({ accounts, currency }: AccountsOverviewProps) 
       </Card>
 
       <AccountFormModal
-        {...formModal}
+        {...accountModal}
         onSuccess={() => {
           closeAccountFormModal();
           refreshAccounts();

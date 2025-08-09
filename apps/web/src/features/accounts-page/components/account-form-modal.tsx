@@ -28,10 +28,11 @@ import {
   InvestmentAccountForm,
   SavingsAccountForm,
 } from "@/features/_components/account-forms";
+import { notifier } from "@/utils/notifier";
 
 type AccountFormModalProps = {
   open: boolean;
-  updateAccountId: number | null;
+  updateId?: number;
   type: EAccountType;
   onSuccess?: () => void;
   onClose: () => void;
@@ -39,20 +40,24 @@ type AccountFormModalProps = {
 
 export function AccountFormModal({
   open,
-  updateAccountId,
+  updateId,
   type,
   onSuccess,
   onClose,
 }: AccountFormModalProps) {
-  const t = useTranslations("AccountsOverview");
   const tC = useTranslations("Common");
+  const t = useTranslations("ActionMessages");
+  const accountT = tC("account_singular");
 
-  if (updateAccountId) {
+  if (updateId) {
     const commonProps = {
       title: `${tC("edit")} ${tC(accountTypeMap[type])}`,
       open,
-      defaultErrorMsg: t("updateError"),
-      onSuccess,
+      defaultErrorMsg: t("updateError", { entity: accountT }),
+      onSuccess: () => {
+        onSuccess?.();
+        notifier.notify(t("updateSuccess", { entity: accountT }), "success");
+      },
       onClose,
     };
 
@@ -62,9 +67,9 @@ export function AccountFormModal({
           <UpdateFormModal
             {...commonProps}
             Form={CashAccountForm}
-            queryKey={["cash-accounts", updateAccountId]}
-            queryFn={() => getCashAccountById(updateAccountId).then((res) => res.data)}
-            updateFn={(data) => updateCashAccount({ id: updateAccountId, data })}
+            queryKey={["cash-accounts", updateId]}
+            queryFn={() => getCashAccountById(updateId).then((res) => res.data)}
+            updateFn={(data) => updateCashAccount({ id: updateId, data })}
             formProps={{
               disabledFields: {
                 initialBalance: true,
@@ -78,9 +83,9 @@ export function AccountFormModal({
           <UpdateFormModal
             {...commonProps}
             Form={CheckingAccountForm}
-            queryKey={["checking-accounts", updateAccountId]}
-            queryFn={() => getCheckingAccountById(updateAccountId).then((res) => res.data)}
-            updateFn={(data) => updateCheckingAccount({ id: updateAccountId, data })}
+            queryKey={["checking-accounts", updateId]}
+            queryFn={() => getCheckingAccountById(updateId).then((res) => res.data)}
+            updateFn={(data) => updateCheckingAccount({ id: updateId, data })}
             formProps={{
               disabledFields: {
                 initialBalance: true,
@@ -94,9 +99,9 @@ export function AccountFormModal({
           <UpdateFormModal
             {...commonProps}
             Form={CreditCardForm}
-            queryKey={["credit-cards", updateAccountId]}
-            queryFn={() => getCreditCardById(updateAccountId).then((res) => res.data)}
-            updateFn={(data) => updateCreditCard({ id: updateAccountId, data })}
+            queryKey={["credit-cards", updateId]}
+            queryFn={() => getCreditCardById(updateId).then((res) => res.data)}
+            updateFn={(data) => updateCreditCard({ id: updateId, data })}
             formProps={{
               disabledFields: {
                 initialBalance: true,
@@ -110,9 +115,9 @@ export function AccountFormModal({
           <UpdateFormModal
             {...commonProps}
             Form={SavingsAccountForm}
-            queryKey={["savings-accounts", updateAccountId]}
-            queryFn={() => getSavingsAccountById(updateAccountId).then((res) => res.data)}
-            updateFn={(data) => updateSavingsAccount({ id: updateAccountId, data })}
+            queryKey={["savings-accounts", updateId]}
+            queryFn={() => getSavingsAccountById(updateId).then((res) => res.data)}
+            updateFn={(data) => updateSavingsAccount({ id: updateId, data })}
             formProps={{
               disabledFields: {
                 initialBalance: true,
@@ -126,9 +131,9 @@ export function AccountFormModal({
           <UpdateFormModal
             {...commonProps}
             Form={InvestmentAccountForm}
-            queryKey={["investment-accounts", updateAccountId]}
-            queryFn={() => getInvestmentAccountById(updateAccountId).then((res) => res.data)}
-            updateFn={(data) => updateInvestmentAccount({ id: updateAccountId, data })}
+            queryKey={["investment-accounts", updateId]}
+            queryFn={() => getInvestmentAccountById(updateId).then((res) => res.data)}
+            updateFn={(data) => updateInvestmentAccount({ id: updateId, data })}
             formProps={{
               disabledFields: {
                 initialBalance: true,
@@ -145,8 +150,11 @@ export function AccountFormModal({
   const commonProps = {
     title: `${tC("add")} ${tC(accountTypeMap[type])}`,
     open,
-    defaultErrorMsg: t("createError"),
-    onSuccess,
+    defaultErrorMsg: t("createError", { entity: accountT }),
+    onSuccess: () => {
+      onSuccess?.();
+      notifier.notify(t("createSuccess", { entity: accountT }), "success");
+    },
     onClose,
   };
 

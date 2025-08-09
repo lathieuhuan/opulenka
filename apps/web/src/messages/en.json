@@ -88,10 +88,6 @@
   },
   "AccountsOverview": {
     "title": "Your Accounts",
-    "createSuccess": "Account created successfully",
-    "updateSuccess": "Account updated successfully",
-    "createError": "Failed to create account. Please try again later.",
-    "updateError": "Failed to edit account. Please try again later.",
     "noAccounts": "No accounts found"
   }
 }
