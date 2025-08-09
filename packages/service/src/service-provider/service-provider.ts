@@ -7,9 +7,11 @@ import { AccountRepository } from "@/repositories/account-repository";
 import { CreditCardRepository } from "@/repositories/credit-card-repository";
 import { InvestmentAccountRepository } from "@/repositories/investment-account-repository";
 import { SavingsAccountRepository } from "@/repositories/savings-account-repository";
+import { TransactionRepository } from "@/repositories/transaction-repository";
 import { UserRepository } from "@/repositories/user-repository";
 import { AccountService } from "@/services/account-service";
 import { AuthService } from "@/services/auth-service";
+import { TransactionService } from "@/services/transaction-service";
 
 // type Database = NeonHttpDatabase & {
 //   $client: NeonQueryFunction<false, false>;
@@ -21,6 +23,7 @@ export class ServiceProvider {
 
   authService: AuthService;
   accountService: AccountService;
+  transactionService: TransactionService;
 
   constructor(connectionString: string) {
     this._sql = neon(connectionString);
@@ -31,6 +34,7 @@ export class ServiceProvider {
     const creditCardRepo = new CreditCardRepository(db);
     const investmentAccountRepo = new InvestmentAccountRepository(db);
     const savingsAccountRepo = new SavingsAccountRepository(db);
+    const transactionRepo = new TransactionRepository(db);
 
     this.authService = new AuthService(userRepo);
     this.accountService = new AccountService(
@@ -39,6 +43,7 @@ export class ServiceProvider {
       investmentAccountRepo,
       savingsAccountRepo,
     );
+    this.transactionService = new TransactionService(transactionRepo, accountRepo);
   }
 
   private get sql() {
@@ -52,6 +57,7 @@ export class ServiceProvider {
     return {
       auth: this.authService,
       account: this.accountService,
+      transaction: this.transactionService,
     };
   }
 
