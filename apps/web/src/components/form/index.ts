@@ -3,3 +3,4 @@ export * from "./form-field";
 export * from "./form-input";
 export * from "./form-input-number";
 export * from "./form-select";
+export * from "./form-date-picker";
