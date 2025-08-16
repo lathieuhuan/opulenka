@@ -13,7 +13,14 @@
     "transfer": "Transfer",
     "account_singular": "Account",
     "transaction_singular": "Transaction",
-    "transaction_plural": "Transactions"
+    "transaction_plural": "Transactions",
+    "filter": "Filter",
+    "apply": "Apply",
+    "reset": "Reset",
+    "result_plural": "Results",
+    "type": "Type",
+    "createdFrom": "Created from",
+    "createdTo": "Created to"
   },
   "FormField": {
     "REQUIRED_INFO": "This field is required",
@@ -21,7 +28,8 @@
     "INVALID_VALUE": "Invalid information",
     "INCORRECT_PASSWORD_CONFIRM": "Incorrect password confirmation",
     "__Enter": "Enter",
-    "__Select": "Select"
+    "__Select": "Select",
+    "__Pick": "Pick"
   },
   "ActionMessages": {
     "createSuccess": "{entity} created successfully",
@@ -89,5 +97,9 @@
   "AccountsOverview": {
     "title": "Your Accounts",
     "noAccounts": "No accounts found"
+  },
+  "TransactionsPage": {
+    "title": "Transactions",
+    "noTransactions": "No transactions"
   }
 }

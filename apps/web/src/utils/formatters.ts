@@ -17,3 +17,8 @@ export function formatAmount(
   const formatter = new Intl.NumberFormat("en-US", { ...defaultOptions, ...options });
   return formatter.format(amount);
 }
+
+export function formatDate(date: Date, options?: Intl.DateTimeFormatOptions): string {
+  const formatter = new Intl.DateTimeFormat("en-US", { ...options });
+  return formatter.format(date);
+}

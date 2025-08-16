@@ -1,7 +1,13 @@
 import { z } from "zod";
 
 import { ESortOrder, ETransactionType } from "@opulenka/service";
-import { optionalNumber, optionalString, requiredNumber } from "./schema-parts";
+import {
+  optionalDate,
+  optionalEnum,
+  optionalNumber,
+  optionalString,
+  requiredNumber,
+} from "./schema-parts";
 
 export const createTransactionSchema = z.object({
   accountId: requiredNumber,
@@ -19,15 +25,15 @@ export const updateTransactionSchema = z.object({
 });
 
 export const getTransactionsSchema = z.object({
+  search: optionalString,
   accountId: optionalNumber,
+  type: optionalEnum(ETransactionType),
   page: optionalNumber,
   limit: optionalNumber,
   sortBy: optionalString,
-  sortOrder: z.nativeEnum(ESortOrder).optional(),
-  search: optionalString,
-  // TODO: add date range
-  // startDate: optionalString,
-  // endDate: optionalString,
+  sortOrder: optionalEnum(ESortOrder),
+  createdFrom: optionalDate,
+  createdTo: optionalDate,
 });
 
 export type CreateTransactionSchema = z.infer<typeof createTransactionSchema>;
