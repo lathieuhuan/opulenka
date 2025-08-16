@@ -1,5 +1,6 @@
-import { ESortOrder, ETransactionType } from "@/constants/enums";
+import { ETransactionType } from "@/constants/enums";
 import { TransactionEntity } from "../entities";
+import { PaginationParams } from "../common";
 
 export interface CreateTransactionParams {
   accountId: number;
@@ -16,15 +17,12 @@ export interface UpdateTransactionParams {
   fee?: number;
 }
 
-export interface GetTransactionsParams {
+export interface GetTransactionsParams extends PaginationParams {
   accountId?: number;
-  page?: number;
-  limit?: number;
-  sortBy?: string;
-  sortOrder?: ESortOrder;
   search?: string;
-  startDate?: Date;
-  endDate?: Date;
+  type?: ETransactionType;
+  createdFrom?: Date;
+  createdTo?: Date;
 }
 
 export interface ITransactionRepository {

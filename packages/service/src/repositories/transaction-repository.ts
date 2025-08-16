@@ -44,8 +44,9 @@ export class TransactionRepository extends BaseRepository implements ITransactio
       sortBy = "createdAt",
       sortOrder = ESortOrder.DESC,
       search,
-      startDate,
-      endDate,
+      type,
+      createdFrom,
+      createdTo,
     } = params;
 
     // Build where conditions
@@ -65,13 +66,18 @@ export class TransactionRepository extends BaseRepository implements ITransactio
       );
     }
 
-    // Add date range filters
-    if (startDate) {
-      whereConditions.push(gte(TransactionTable.createdAt, startDate));
+    // Add type filter
+    if (type) {
+      whereConditions.push(eq(TransactionTable.type, type));
     }
 
-    if (endDate) {
-      whereConditions.push(lte(TransactionTable.createdAt, endDate));
+    // Add date range filters
+    if (createdFrom) {
+      whereConditions.push(gte(TransactionTable.createdAt, createdFrom));
+    }
+
+    if (createdTo) {
+      whereConditions.push(lte(TransactionTable.createdAt, createdTo));
     }
 
     // Add sorting
