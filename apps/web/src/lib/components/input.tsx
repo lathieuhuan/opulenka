@@ -1,11 +1,12 @@
 "use client";
 
-import { CircleX } from "lucide-react";
 import { ChangeEvent, useRef } from "react";
 
 import { cn, mergeRefs } from "@/lib/utils/functions";
 import { useControllableState } from "../hooks/use-controllable-state";
+
 import { Button, type ButtonProps } from "./button";
+import { ClearButton } from "./clear-button";
 import { InputBase } from "./input-base";
 
 // self-made
@@ -37,7 +38,7 @@ function Input({
     },
   });
   const internalRef = useRef<HTMLInputElement>(null);
-  const showClearBtn = Boolean(allowClear && _value);
+  const showClearBtn = Boolean(allowClear && _value && !disabled);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange?.(e);
@@ -50,7 +51,13 @@ function Input({
   };
 
   const renderInput = (cls?: string) => (
-    <div className={cn("relative flex w-full items-center", disabled && "cursor-not-allowed")}>
+    <div
+      className={cn(
+        "group/control relative flex w-full items-center",
+        disabled && "cursor-not-allowed",
+      )}
+      data-clearable
+    >
       <InputBase
         className={cn(showClearBtn && "pr-10", cls, className)}
         ref={mergeRefs(internalRef, externalRef)}
@@ -59,16 +66,7 @@ function Input({
         onChange={handleChange}
         {...baseProps}
       />
-      {showClearBtn && !disabled ? (
-        <button
-          type="button"
-          className="absolute right-2 size-6 flex items-center justify-center text-muted-foreground hover:text-destructive"
-          tabIndex={-1}
-          onClick={onClickClear}
-        >
-          <CircleX size={20} />
-        </button>
-      ) : null}
+      {showClearBtn && <ClearButton onClick={onClickClear} />}
     </div>
   );
 
@@ -77,7 +75,6 @@ function Input({
       <div className="relative flex w-full items-center">
         {renderInput("rounded-r-none")}
         <Button
-          type="button"
           variant="outline"
           disabled={disabled}
           {...action}

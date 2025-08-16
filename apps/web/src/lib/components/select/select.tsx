@@ -11,6 +11,7 @@ import {
   SelectValue,
   type SelectTriggerProps,
 } from "./components";
+import { ClearButton } from "../clear-button";
 
 // modified
 
@@ -50,7 +51,7 @@ export function Select({
       onValueChange?.(value);
     },
   });
-  const isClearable = allowClear && !props.disabled && _value !== undefined && _value !== "";
+  const clearable = allowClear && !props.disabled && _value !== undefined && _value !== "";
 
   const handleClear = () => {
     _setValue("");
@@ -58,20 +59,18 @@ export function Select({
 
   return (
     <SelectContainer value={_value} onValueChange={_setValue}>
-      <div className="group relative" data-clearable={isClearable}>
+      <div className="group/control relative" data-clearable={clearable}>
         <SelectTrigger
           className={cn("w-full", className)}
-          arrowCls="group-data-[clearable=true]:group-hover:hidden"
+          arrowCls={"group-data-[clearable=true]/control:group-hover/control:hidden"}
           {...props}
         >
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
-        <span
-          className="absolute z-50 right-2 top-1/2 -translate-y-1/2 size-6 rounded-full text-muted-foreground hover:text-destructive hidden group-data-[clearable=true]:group-hover:flex items-center justify-center"
+        <ClearButton
+          className="hidden group-data-[clearable=true]/control:group-hover/control:block"
           onClick={handleClear}
-        >
-          <CircleX className="size-5" />
-        </span>
+        />
       </div>
       <SelectContent>
         {options.map((option) => (
