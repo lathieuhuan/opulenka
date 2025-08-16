@@ -1,3 +1,5 @@
+"use client";
+
 import { CircleX } from "lucide-react";
 import { ChangeEvent, useRef } from "react";
 
