@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { EnumLike, z } from "zod";
 import { StringUtils } from "@/lib/utils/string-utils";
 import { ZOD_ERROR_MESSAGES } from "@/config/zod";
 
@@ -22,6 +22,13 @@ export const optionalString = z
   )
   .transform((value) => (isEmptyString(value) ? undefined : value));
 
+export const requiredNumber = z
+  .any()
+  .optional()
+  .refine((value) => value === "" || typeof value === "number", ZOD_ERROR_MESSAGES.INVALID_VALUE)
+  .refine((value) => !isEmptyString(value), ZOD_ERROR_MESSAGES.REQUIRED_INFO)
+  .transform((value) => Number(value));
+
 export const optionalNumber = z
   .any()
   .refine(
@@ -30,9 +37,25 @@ export const optionalNumber = z
   )
   .transform((value) => (isEmptyString(value) ? undefined : Number(value)));
 
-export const requiredNumber = z
+export const optionalEnum = <TEnum extends EnumLike>(values: TEnum) =>
+  z
+    .any()
+    .refine((value) => isEmptyString(value) || value in values, ZOD_ERROR_MESSAGES.INVALID_VALUE)
+    .transform((value) => (isEmptyString(value) ? undefined : z.nativeEnum(values).parse(value)));
+
+export const requiredDate = z
   .any()
-  .optional()
-  .refine((value) => value === "" || typeof value === "number", ZOD_ERROR_MESSAGES.INVALID_VALUE)
+  .refine(
+    (value) => isEmptyString(value) || value instanceof Date,
+    ZOD_ERROR_MESSAGES.INVALID_VALUE,
+  )
   .refine((value) => !isEmptyString(value), ZOD_ERROR_MESSAGES.REQUIRED_INFO)
-  .transform((value) => Number(value));
+  .transform((value) => value as Date);
+
+export const optionalDate = z
+  .any()
+  .refine(
+    (value) => isEmptyString(value) || value instanceof Date,
+    ZOD_ERROR_MESSAGES.INVALID_VALUE,
+  )
+  .transform((value) => (isEmptyString(value) ? undefined : value));

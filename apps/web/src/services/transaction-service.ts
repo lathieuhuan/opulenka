@@ -1,23 +1,28 @@
+import { isoStringFieldsToDate } from "@/lib/utils/converters";
 import {
   CreateTransactionRequest,
   CreateTransactionResponse,
+  DeleteTransactionResponse,
   GetTransactionByIdResponse,
   GetTransactionsRequest,
   GetTransactionsResponse,
   UpdateTransactionRequest,
   UpdateTransactionResponse,
-  DeleteTransactionResponse,
-  DataOf,
 } from "@opulenka/service";
 import { http, RequestConfig } from "./base/http";
 
-export type TransactionFromGetTransactions = DataOf<GetTransactionsResponse>[number];
+export type GetTransactionsParams = Pick<
+  GetTransactionsRequest,
+  "page" | "limit" | "search" | "type" | "createdFrom" | "createdTo"
+>;
 
-export function getTransactions(params?: GetTransactionsRequest, config?: RequestConfig) {
-  return http.request<GetTransactionsResponse>("GET", "/transactions", {
-    params,
-    ...config,
-  });
+export function getTransactions(params: GetTransactionsParams, config?: RequestConfig) {
+  return http
+    .request<GetTransactionsResponse>("GET", "/transactions", {
+      params,
+      ...config,
+    })
+    .then((res) => res.data.map((item) => isoStringFieldsToDate(item, ["createdAt"])));
 }
 
 export function createTransaction(req: CreateTransactionRequest, config?: RequestConfig) {
