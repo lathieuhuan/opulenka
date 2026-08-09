@@ -1,9 +1,9 @@
-import path from "node:path";
-import tailwindcss from "@tailwindcss/vite";
-import react from "@vitejs/plugin-react-swc";
-import { defineConfig, normalizePath } from "vite";
-import dts from "vite-plugin-dts";
-import { viteStaticCopy } from "vite-plugin-static-copy";
+import path from "node:path"
+import tailwindcss from "@tailwindcss/vite"
+import react from "@vitejs/plugin-react-swc"
+import { defineConfig, normalizePath } from "vite"
+import dts from "vite-plugin-dts"
+import { viteStaticCopy } from "vite-plugin-static-copy"
 
 export default defineConfig({
 	plugins: [
@@ -50,12 +50,12 @@ export default defineConfig({
 				entryFileNames: "[name].js",
 				assetFileNames: (assetInfo) => {
 					if (assetInfo.originalFileNames.includes("src/index.ts")) {
-						return "index.css";
+						return "index.css"
 					}
 					// Default naming for other assets
-					return "assets/[name].[ext]";
+					return "assets/[name].[ext]"
 				},
 			},
 		},
 	},
-});
+})

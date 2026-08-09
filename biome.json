@@ -11,16 +11,19 @@
 		}
 	},
 	"files": {
-		"ignoreUnknown": false
+		"ignoreUnknown": false,
+		"includes": ["**", "!**/node_modules", "!**/dist", "!**/*.gen.ts"]
 	},
 	"formatter": {
 		"enabled": true,
-		"indentStyle": "tab"
+		"indentStyle": "tab",
+		"trailingNewline": false
 	},
 	"linter": {
 		"enabled": true,
 		"rules": {
 			"preset": "recommended",
+			"a11y": "off",
 			"correctness": {
 				"useExhaustiveDependencies": "info",
 				"noUnusedImports": {
@@ -32,7 +35,8 @@
 	},
 	"javascript": {
 		"formatter": {
-			"quoteStyle": "double"
+			"quoteStyle": "double",
+			"semicolons": "asNeeded"
 		}
 	},
 	"assist": {

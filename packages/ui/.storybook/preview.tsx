@@ -1,7 +1,7 @@
-import { withThemeByClassName } from "@storybook/addon-themes";
-import type { Preview } from "@storybook/react-vite";
+import { withThemeByClassName } from "@storybook/addon-themes"
+import type { Preview } from "@storybook/react-vite"
 
-import "./preview.css";
+import "./preview.css"
 
 const preview: Preview = {
 	parameters: {
@@ -22,6 +22,6 @@ const preview: Preview = {
 			parentSelector: "body",
 		}),
 	],
-};
+}
 
-export default preview;
+export default preview
