@@ -1,0 +1,24 @@
+@layer theme, base, components, utilities;
+
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/noto-sans";
+@import "../themes/default.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@layer base {
+	* {
+		border-color: var(--color-border);
+		outline-color: color-mix(in oklab, var(--color-ring) 50%, transparent);
+	}
+	body {
+		font-family: var(--font-sans);
+		background-color: var(--color-background);
+		color: var(--color-foreground);
+	}
+	button:not(:disabled),
+	[role="button"]:not(:disabled) {
+		cursor: pointer;
+	}
+}

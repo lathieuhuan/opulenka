@@ -1,6 +1,20 @@
 {
 	"name": "opulenka",
 	"private": false,
+	"scripts": {
+		"build": "turbo run build",
+		"dev": "turbo run dev",
+		"dev:web": "turbo run dev --filter=@opulenka/web",
+		"dev:ui": "turbo run dev --filter=@opulenka/ui",
+		"build:ui": "turbo run build --filter=@opulenka/ui",
+		"format-lint": "biome check .",
+		"format-lint:fix": "biome check . --write"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.5.6",
+		"turbo": "2.5.2",
+		"typescript": "6.0.3"
+	},
 	"packageManager": "pnpm@11.0.0",
 	"engines": {
 		"node": ">=20"

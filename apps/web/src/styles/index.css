@@ -1,0 +1,5 @@
+@import "@opulenka/ui/index.css";
+@import "@opulenka/ui/themes/dark.css";
+@import "tailwindcss";
+
+@source "../../node_modules/@opulenka/ui/dist/index.js";
