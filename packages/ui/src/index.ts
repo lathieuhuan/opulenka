@@ -1,3 +1,3 @@
-import "./styles/index.build.css";
+import "./styles/index.build.css"
 
-export * from "./components/Button";
+export * from "./components/Button"
