@@ -1,4 +1,0 @@
-@import "./index.css";
-
-@source not "../**/*.stories.ts";
-@source not "../**/*.stories.tsx";
