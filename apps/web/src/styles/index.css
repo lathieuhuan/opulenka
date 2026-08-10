@@ -1,5 +1,8 @@
-@import "@opulenka/ui/index.css";
-@import "@opulenka/ui/themes/dark.css";
+/* @layer theme, base, components, utilities; */
+
 @import "tailwindcss";
+@import "@opulenka/ui/styles/index.css";
+@import "@opulenka/ui/themes/dark.css";
+@import "@opulenka/ui/fonts/noto-sans.css";
 
 @source "../../node_modules/@opulenka/ui/dist/index.js";

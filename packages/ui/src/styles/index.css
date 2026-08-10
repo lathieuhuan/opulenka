@@ -1,8 +1,11 @@
 @layer theme, base, components, utilities;
 
+/* 
+	Do NOT import tailwindcss here or tailwind directives will be stripped
+	from the output by @tailwindcss/vite
+*/
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/noto-sans";
 @import "../themes/default.css";
 
 @custom-variant dark (&:is(.dark *));
