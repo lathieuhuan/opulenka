@@ -1,19 +1,26 @@
 import { Button } from "@opulenka/ui"
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute, Link } from "@tanstack/react-router"
 
 export const Route = createFileRoute("/")({
 	component: RouteComponent,
 })
 
 function RouteComponent() {
-	const handleClick = () => {
-		document.body.classList.toggle("dark")
-	}
-
 	return (
-		<div>
-			<div className="text-chart-4">Hello World</div>
-			<Button onClick={handleClick}>Click me</Button>
+		<div className="space-y-4">
+			<h1>Landing Page</h1>
+
+			<div>
+				<Link to="/pricing" className="text-blue-400 hover:underline">
+					Pricing
+				</Link>
+			</div>
+
+			<div>
+				<Link to="/app">
+					<Button>Login</Button>
+				</Link>
+			</div>
 		</div>
 	)
 }

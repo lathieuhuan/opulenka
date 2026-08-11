@@ -40,7 +40,8 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
 			<head>
 				<HeadContent />
 			</head>
-			<body>
+			{/* TODO make dark mode toggle */}
+			<body className="dark">
 				{children}
 				<Scripts />
 			</body>
