@@ -29,6 +29,9 @@ importers:
       '@tanstack/react-start':
         specifier: 1.168.32
         version: 1.168.32(esbuild@0.25.12)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rollup@4.62.4)(vite@7.1.7(@types/node@22.14.0)(jiti@2.7.0)(lightningcss@1.33.0))
+      lucide-react:
+        specifier: 1.29.0
+        version: 1.29.0(react@19.2.8)
       react:
         specifier: 19.2.8
         version: 19.2.8

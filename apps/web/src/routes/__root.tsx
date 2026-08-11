@@ -1,3 +1,4 @@
+import { ConfigProvider } from "@opulenka/ui"
 import {
 	createRootRoute,
 	HeadContent,
@@ -22,6 +23,12 @@ export const Route = createRootRoute({
 				title: "Opulenka",
 			},
 		],
+		links: [
+			{
+				rel: "icon",
+				href: "/favicon.ico",
+			},
+		],
 	}),
 	component: RootComponent,
 })
@@ -29,7 +36,9 @@ export const Route = createRootRoute({
 function RootComponent() {
 	return (
 		<RootDocument>
-			<Outlet />
+			<ConfigProvider>
+				<Outlet />
+			</ConfigProvider>
 		</RootDocument>
 	)
 }
