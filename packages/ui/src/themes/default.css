@@ -1,15 +1,17 @@
 @theme {
 	--color-background: oklch(1 0 0);
 	--color-foreground: oklch(0.141 0.005 285.823);
-	--color-primary: oklch(0.852 0.199 91.936);
+	--color-primary: oklch(0.795 0.184 86.047);
 	--color-primary-foreground: oklch(0.141 0.005 285.823);
+	--color-destructive: oklch(0.4855 0.1992 29.23);
+	--color-destructive-foreground: oklch(1 0 0);
+	--color-neutral: oklch(0.8878 0.0087 67.71);
 	--color-secondary: oklch(0.967 0.001 286.375);
 	--color-secondary-foreground: oklch(0.21 0.006 285.885);
 	--color-muted: oklch(0.967 0.001 286.375);
 	--color-muted-foreground: oklch(0.552 0.016 285.938);
 	--color-accent: oklch(0.967 0.001 286.375);
 	--color-accent-foreground: oklch(0.21 0.006 285.885);
-	--color-destructive: oklch(0.577 0.245 27.325);
 	--color-border: oklch(0.92 0.004 286.32);
 	--color-input: oklch(0.92 0.004 286.32);
 	--color-ring: oklch(0.705 0.015 286.067);
@@ -32,11 +34,12 @@
 	--color-sidebar-ring: oklch(0.705 0.015 286.067);
 	--font-heading: "Noto Sans Variable", sans-serif;
 	--font-sans: "Noto Sans Variable", sans-serif;
-	--radius-sm: 0.27rem; /* 0.45rem * 0.6 */
-	--radius-md: 0.36rem; /* 0.45rem * 0.8 */
-	--radius-lg: 0.45rem; /* 0.45rem */
-	--radius-xl: 0.63rem; /* 0.45rem * 1.4 */
-	--radius-2xl: 0.81rem; /* 0.45rem * 1.8 */
-	--radius-3xl: 1rem; /* 0.45rem * 2.2 */
-	--radius-4xl: 1.17rem; /* 0.45rem * 2.6 */
+	--radius: 0.5rem;
+	--radius-sm: calc(var(--radius) * 0.5);
+	--radius-md: calc(var(--radius) * 0.75);
+	--radius-lg: calc(var(--radius) * 1);
+	--radius-xl: calc(var(--radius) * 1.25);
+	--radius-2xl: calc(var(--radius) * 1.5);
+	--radius-3xl: calc(var(--radius) * 1.75);
+	--radius-4xl: calc(var(--radius) * 2);
 }
