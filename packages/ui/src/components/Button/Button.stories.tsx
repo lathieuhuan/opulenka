@@ -34,6 +34,9 @@ const meta = {
 		icon: {
 			control: false,
 		},
+		disabled: {
+			control: "boolean",
+		},
 	},
 	args: {
 		children: "Button",
